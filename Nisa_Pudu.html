@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=yes">
+    <title>Nisa Pudu Island - Hidden Gem of Dompu, West Nusa Tenggara</title>
+    <meta name="description" content="Discover the beauty of Nisa Pudu Island in Dompu, West Nusa Tenggara. A small uninhabited island with mesmerizing white sand and crystal clear sea water.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* FIXES FOR MOBILE OVERFLOW */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Scroll behavior and font */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .gallery-item {
+            transition: all 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 95%;
+            max-height: 85%;
+            margin-top: 2%;
+            border-radius: 8px;
+        }
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .animate-slide-in {
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        /* Video hero styling */
+        .video-hero-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .video-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translateX(-50%) translateY(-50%);
+            object-fit: cover;
+            max-width: 100%;
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(30, 64, 175, 0.7), rgba(14, 116, 144, 0.5));
+            z-index: 1;
+        }
+        
+        /* Video section styling - MODIFIED FOR PORTRAIT FORMAT */
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 350px;
+            margin: 0 auto;
+            padding-bottom: 70%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            background-color: #000;
+        }
+        
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            object-fit: cover;
+        }
+        
+        /* Video wrapper untuk responsif */
+        .video-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+        
+        /* Styling untuk video potret di semua device */
+        @media (min-width: 768px) {
+            .video-container {
+                max-width: 350px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .video-container {
+                max-width: 400px;
+            }
+        }
+        
+        /* Fullscreen portrait video styling */
+        .video-container.fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            max-width: 100%;
+            max-height: 100%;
+            padding-bottom: 0;
+            border-radius: 0;
+            z-index: 9999;
+            background: #000;
+        }
+        
+        .video-container.fullscreen video {
+            object-fit: contain;
+            background: #000;
+        }
+        
+        /* Fullscreen controls */
+        .fullscreen-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10000;
+            display: flex;
+            gap: 15px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .video-container.fullscreen:hover .fullscreen-controls {
+            opacity: 1;
+        }
+        
+        .fullscreen-btn {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+        
+        .fullscreen-btn:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        /* FIXES FOR MOBILE OVERFLOW - CONTINUED */
+        .container {
+            max-width: 100% !important;
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+
+        section, div, nav, footer {
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
+        /* Ensure images don't overflow */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Fix for iframe */
+        iframe {
+            max-width: 100% !important;
+            width: 100% !important;
+        }
+
+        /* Fix for grid items */
+        .grid > * {
+            max-width: 100%;
+        }
+
+        /* Fix for hero section */
+        .relative.h-screen {
+            overflow-x: hidden;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            
+            .container {
+                padding-left: 0.75rem !important;
+                padding-right: 0.75rem !important;
+            }
+            
+            section {
+                padding-left: 0.75rem !important;
+                padding-right: 0.75rem !important;
+            }
+            
+            .grid {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+            
+            /* Fix for stats section */
+            .grid-cols-2.gap-6 > * {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+            
+            /* Fix gallery grid */
+            #gallery .grid {
+                padding-left: 0;
+                padding-right: 0;
+            }
+            
+            /* Reduce padding on mobile */
+            .p-6, .p-8 {
+                padding: 1rem !important;
+            }
+            
+            /* Fix text overflow */
+            .text-4xl, .text-6xl, .text-3xl, .text-2xl {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                font-size: 14px;
+            }
+            
+            .container {
+                padding-left: 0.5rem !important;
+                padding-right: 0.5rem !important;
+            }
+            
+            .px-4 {
+                padding-left: 0.5rem !important;
+                padding-right: 0.5rem !important;
+            }
+            
+            /* Fix for small text */
+            .text-lg {
+                font-size: 0.95rem;
+            }
+            
+            /* Adjust button sizes */
+            button, a.btn {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+                font-size: 0.9rem !important;
+            }
+        }
+
+        /* Custom alert styling */
+        .custom-alert {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 9999;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-left-width: 4px;
+            transform: translateX(0);
+            transition: all 0.3s ease;
+        }
+
+        /* Error message styling */
+        .error-message {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    
+    <!-- Scroll Progress Bar -->
+    <div class="fixed top-0 left-0 w-full h-1 z-50 bg-blue-600" id="scrollProgress" style="width: 0%"></div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition duration-300 opacity-0 invisible hover:scale-110 z-40 flex items-center justify-center">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Navbar -->
+    <nav class="bg-gradient-to-r from-blue-800 to-cyan-700 text-white py-4 shadow-lg sticky top-0 z-40 w-full">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold flex items-center">
+                <i class="fas fa-island-tropical mr-3"></i>
+                Nisa Pudu Island
+            </a>
+            
+            <div class="hidden md:flex space-x-6">
+                <a href="seemore.html" class="hover:text-amber-200 transition duration-300 font-medium">Back >></a>
+                <a href="#about" class="hover:text-blue-200 transition duration-300 font-medium">About</a>
+                <a href="#attractions" class="hover:text-blue-200 transition duration-300 font-medium">Attractions</a>
+                <a href="#gallery" class="hover:text-blue-200 transition duration-300 font-medium">Gallery</a>
+                <a href="#video" class="hover:text-blue-200 transition duration-300 font-medium">Video</a>
+                <a href="#access" class="hover:text-blue-200 transition duration-300 font-medium">Access</a>
+                <a href="#tips" class="hover:text-blue-200 transition duration-300 font-medium">Tips</a>
+                <a href="#contact" class="hover:text-blue-200 transition duration-300 font-medium">Contact</a>
+            </div>
+            
+            <button id="mobileMenuButton" class="md:hidden text-white">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="md:hidden bg-cyan-800 max-h-0 overflow-hidden transition-all duration-500 w-full">
+            <div class="container mx-auto px-4 py-4 flex flex-col space-y-4 w-full">
+                <a href="seemore.html" class="hover:text-amber-200 transition duration-300 font-medium">Back >></a>
+                <a href="#about" class="hover:text-blue-200 transition duration-300 py-2">About</a>
+                <a href="#attractions" class="hover:text-blue-200 transition duration-300 py-2">Attractions</a>
+                <a href="#gallery" class="hover:text-blue-200 transition duration-300 py-2">Gallery</a>
+                <a href="#video" class="hover:text-blue-200 transition duration-300 py-2">Video</a>
+                <a href="#access" class="hover:text-blue-200 transition duration-300 py-2">Access</a>
+                <a href="#tips" class="hover:text-blue-200 transition duration-300 py-2">Tips</a>
+                <a href="#contact" class="hover:text-blue-200 transition duration-300 py-2">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Video Background -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden w-full">
+        <!-- Video Background -->
+        <div class="video-hero-container">
+            <video autoplay muted loop playsinline class="video-background">
+                <source src="Nisa_Pudu/vidio.mp4" type="video/mp4">
+                <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+                     alt="Nisa Pudu Island">
+            </video>
+            <div class="video-overlay"></div>
+        </div>
+        
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center text-white px-4 w-full">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-pulse">Nisa Pudu Island</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Hidden Island in Saleh Bay, Dompu West Nusa Tenggara</p>
+            <button id="exploreBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-semibold text-lg transition duration-300 transform hover:scale-105 shadow-lg">
+                Explore the Beauty
+            </button>
+        </div>
+        
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce z-10">
+            <a href="#about" class="text-white">
+                <i class="fas fa-chevron-down text-3xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12 bg-white w-full">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="bg-gradient-to-br from-blue-500 to-cyan-400 text-white p-6 rounded-xl text-center shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                    <div class="text-3xl font-bold mb-2">30</div>
+                    <div class="text-blue-100">Minutes Crossing</div>
+                </div>
+                <div class="bg-gradient-to-br from-cyan-500 to-blue-400 text-white p-6 rounded-xl text-center shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                    <div class="text-3xl font-bold mb-2">Uninhabited</div>
+                    <div class="text-blue-100">Natural Island</div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-600 to-cyan-500 text-white p-6 rounded-xl text-center shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                    <div class="text-3xl font-bold mb-2">A Handful</div>
+                    <div class="text-blue-100">Meaning of "Pudu"</div>
+                </div>
+                <div class="bg-gradient-to-br from-cyan-600 to-blue-500 text-white p-6 rounded-xl text-center shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                    <div class="text-3xl font-bold mb-2">24 Hours</div>
+                    <div class="text-blue-100">Accessible</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gradient-to-b from-white to-blue-50 w-full">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 relative">
+                About Nisa Pudu Island
+                <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full mt-4"></div>
+            </h2>
+            
+            <div class="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-xl">
+                <p class="text-lg text-gray-700 mb-6">
+                    <strong>Nisa Pudu Island</strong> is one of the hidden natural tourism destinations in Dompu Regency, West Nusa Tenggara.
+                    This small uninhabited island offers the charm of a very pristine nature with fine white sand and crystal clear blue sea water.
+                </p>
+                <p class="text-lg text-gray-700 mb-6">
+                    The name <strong>"Nisa Pudu"</strong> comes from the Dompu language, where <strong>"Nisa"</strong> means island and <strong>"Pudu"</strong> or <strong>"Sapudu"</strong> means a handful, a pinch, or a small amount.
+                    It means, this island is <strong>"a small island like a handful"</strong>.
+                </p>
+                <p class="text-lg text-gray-700">
+                    Nisa Pudu Island is located in the middle of Saleh Bay waters, Soro Barat Village, Kempo District.
+                    To reach this island, visitors must rent a boat from Kempo Port with a travel time of about 30 minutes.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                    <div class="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-xl border border-blue-100 text-center hover:shadow-md transition duration-300">
+                        <div class="text-4xl mb-4 text-blue-500">🏝️</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Uninhabited Island</h3>
+                        <p class="text-gray-600">Quiet and natural atmosphere without disturbance</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-xl border border-blue-100 text-center hover:shadow-md transition duration-300">
+                        <div class="text-4xl mb-4 text-cyan-500">⚓</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Access via Boat</h3>
+                        <p class="text-gray-600">Must cross with fishing boat</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-xl border border-blue-100 text-center hover:shadow-md transition duration-300">
+                        <div class="text-4xl mb-4 text-blue-600">🌊</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Clear Sea Water</h3>
+                        <p class="text-gray-600">Calm and very clear sea water</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Attractions Section -->
+    <section id="attractions" class="py-20 bg-white w-full">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 relative">
+                Tourist Attractions
+                <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-cyan-500 to-blue-400 rounded-full mt-4"></div>
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-swimmer text-3xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Swimming & Snorkeling</h3>
+                    <p class="text-gray-600">Clear water suitable for swimming and seeing underwater beauty</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-cyan-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-camera text-3xl text-cyan-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Nature Photography</h3>
+                    <p class="text-gray-600">Instagenic photo spots with island and blue sea background</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-fish text-3xl text-blue-700"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Fishing</h3>
+                    <p class="text-gray-600">Good fishing spots around the island</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-cyan-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-sun text-3xl text-yellow-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Sunrise & Sunset</h3>
+                    <p class="text-gray-600">Spectacular sunrise and sunset views</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-hiking text-3xl text-blue-800"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Island Exploration</h3>
+                    <p class="text-gray-600">Explore the entire small shady island</p>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-cyan-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-heart text-3xl text-red-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Romantic Tourism</h3>
+                    <p class="text-gray-600">Ideal place for couples looking for tranquility</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-gradient-to-b from-blue-50 to-white w-full">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 relative">
+                Nisa Pudu Island Gallery
+                <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full mt-4"></div>
+            </h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <!-- Gallery Item 1 -->
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg" onclick="openModal('modal1')">
+                    <img src="Nisa_Pudu/ntb.idntimes.com 1.avif" 
+                         alt="Nisa Pudu Island from a distance" 
+                         class="w-full h-64 object-cover">
+                </div>
+                
+                <!-- Gallery Item 2 -->
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg" onclick="openModal('modal2')">
+                    <img src="Nisa_Pudu/kumparan.com 2.jpg" 
+                         alt="White sand of Nisa Pudu Island" 
+                         class="w-full h-64 object-cover">
+                </div>
+                
+                <!-- Gallery Item 3 -->
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg" onclick="openModal('modal3')">
+                    <img src="Nisa_Pudu/mbojoklopedia.com 3.jpg" 
+                         alt="Clear sea water around the island" 
+                         class="w-full h-64 object-cover">
+                </div>
+                
+                <!-- Gallery Item 4 -->
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg" onclick="openModal('modal4')">
+                    <img src="Nisa_Pudu/sumbawa.indonesia-tourism.com 4.jpg" 
+                         alt="Boat heading to Nisa Pudu Island" 
+                         class="w-full h-64 object-cover">
+                </div>
+                
+                <!-- Gallery Item 5 -->
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg" onclick="openModal('modal5')">
+                    <img src="Nisa_Pudu/aroundus.com 5.jpg" 
+                         alt="Shady trees on the island" 
+                         class="w-full h-64 object-cover">
+                </div>
+                
+                <!-- Gallery Item 6 -->
+                <div class="gallery-item rounded-xl overflow-hidden shadow-lg" onclick="openModal('modal6')">
+                    <img src="Nisa_Pudu/backpackerjakarta.com6.jpg" 
+                         alt="Sunset at Nisa Pudu Island" 
+                         class="w-full h-64 object-cover">
+                </div>
+            </div>
+            
+            <!-- Media Sources Section -->
+            <div class="mt-12 bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-xl border border-blue-200">
+                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-camera mr-3 text-blue-600"></i>
+                    Media Sources
+                </h3>
+                <p class="text-gray-600 mb-4">All images and videos used on this website come from the following sources:</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <h4 class="font-bold text-gray-800 mb-2 flex items-center">
+                            <i class="fab fa-unsplash mr-2 text-gray-700"></i>
+                            Kumpara.com
+                        </h4>
+                        <p class="text-gray-600 text-sm">Collection of tropical island and beach photos</p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <h4 class="font-bold text-gray-800 mb-2 flex items-center">
+                            <i class="fab fa-unsplash mr-2 text-gray-700"></i>
+                            mbojokalopedia.com
+                        </h4>
+                        <p class="text-gray-600 text-sm">Collection of tropical island and beach photos</p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <h4 class="font-bold text-gray-800 mb-2 flex items-center">
+                            <i class="fab fa-unsplash mr-2 text-gray-700"></i>
+                            backpackerjakarta.com
+                        </h4>
+                        <p class="text-gray-600 text-sm">Collection of tropical island and beach photos</p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <h4 class="font-bold text-gray-800 mb-2 flex items-center">
+                            <i class="fab fa-unsplash mr-2 text-gray-700"></i>
+                            aroundus.com
+                        </h4>
+                        <p class="text-gray-600 text-sm">Collection of tropical island and beach photos</p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <h4 class="font-bold text-gray-800 mb-2 flex items-center">
+                            <i class="fab fa-unsplash mr-2 text-gray-700"></i>
+                            sumbawa.indonesia-tourism.com
+                        </h4>
+                        <p class="text-gray-600 text-sm">Collection of tropical island and beach photos</p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <h4 class="font-bold text-gray-800 mb-2 flex items-center">
+                            <i class="fas fa-video mr-2 text-blue-700"></i>
+                            Instagram : Fabian Abi
+                        </h4>
+                        <p class="text-gray-600 text-sm">Aerial video of tropical island</p>
+                    </div>
+                </div>
+                
+                <div class="mt-4 text-gray-500 text-sm italic">
+                    <p>Note: All media used come from the sources listed above</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button id="loadMoreGallery" class="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white px-8 py-3 rounded-full font-semibold transition duration-300 transform hover:scale-105 shadow-lg">
+                    <i class="fas fa-images mr-2"></i>See More Photos
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Access & How to Get There Section -->
+    <section id="access" class="py-20 bg-white w-full">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 relative">
+                Access & How to Get There
+                <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-cyan-500 to-blue-400 rounded-full mt-4"></div>
+            </h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden">
+                    <div class="h-64 md:h-80 w-full">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13951.290499558796!2d118.18295717239384!3d-8.5970188522423!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dca5b57597aa117%3A0x31b344c0d7d13f10!2sNISA%20PUDU!5e1!3m2!1sid!2sid!4v1765321149065!5m2!1sid!2sid" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                    
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">How to Get to Nisa Pudu Island</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-bold text-blue-700 mb-3 flex items-center">
+                                    <i class="fas fa-ship mr-2"></i>
+                                    Crossing Route
+                                </h4>
+                                <ol class="space-y-2 text-gray-600">
+                                    <li class="flex items-start">
+                                        <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">1</span>
+                                        <span>From Bima City, land travel to Kempo Port (± 2 hours)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">2</span>
+                                        <span>From Kempo Port, rent a fishing boat to Nisa Pudu Island (± 30 minutes)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">3</span>
+                                        <span>Boat rental cost: IDR 300,000 - IDR 500,000 (round trip, fits 6-10 people)</span>
+                                    </li>
+                                </ol>
+                            </div>
+                            
+                            <div>
+                                <h4 class="font-bold text-cyan-700 mb-3 flex items-center">
+                                    <i class="fas fa-car mr-2"></i>
+                                    From Dompu City
+                                </h4>
+                                <ol class="space-y-2 text-gray-600">
+                                    <li class="flex items-start">
+                                        <span class="bg-cyan-100 text-cyan-800 rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">1</span>
+                                        <span>From Dompu city center, head to Kempo District (± 1-1.5 hours)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="bg-cyan-100 text-cyan-800 rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">2</span>
+                                        <span>Continue to Kempo Ferry Port</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="bg-cyan-100 text-cyan-800 rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">3</span>
+                                        <span>Rent a boat from the port</span>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tips Section -->
+    <section id="tips" class="py-20 bg-gradient-to-b from-white to-blue-50 w-full">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 relative">
+                Visiting Tips
+                <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full mt-4"></div>
+            </h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-gradient-to-br from-blue-50 to-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-suitcase text-blue-600 mr-3"></i>
+                            Preparation & Equipment
+                        </h3>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>BRING your own food & drinks (no shops on the island)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Sunscreen, hat, and swimwear</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Snorkeling equipment (optional)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Trash bag to bring your trash back</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-cyan-50 to-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-calendar-alt text-cyan-600 mr-3"></i>
+                            Best Time to Visit
+                        </h3>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Dry season (April - September)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Depart in the morning (07.00-09.00 WITA)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Return before 17.00 WITA</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-times text-red-500 mt-1 mr-3"></i>
+                                <span>Avoid rainy season & western winds</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-8 bg-gradient-to-r from-blue-100 to-cyan-100 p-6 rounded-xl shadow-md">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-exclamation-triangle text-yellow-600 mr-3"></i>
+                        Important Information
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
+                        <div>
+                            <p class="font-semibold mb-2">Operating Hours:</p>
+                            <p>24 Hours (daytime recommended)</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold mb-2">Entrance Fee:</p>
+                            <p>FREE (only boat rental cost)</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold mb-2">Accommodation:</p>
+                            <p>No lodging on the island</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold mb-2">Facilities:</p>
+                            <p>Very limited, bring your own needs</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 p-6 bg-yellow-50 border border-yellow-200 rounded-xl">
+                    <h4 class="font-bold text-yellow-800 mb-2 flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i>
+                        Safety Tips
+                    </h4>
+                    <p class="text-gray-700">Always follow the advice from the boat guide regarding weather and sea conditions.
+                    Don't swim too far from the shore. Make sure the rented boat is in good condition and 
+                    has basic safety equipment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Video Section - MODIFIED FOR PORTRAIT FORMAT -->
+    <section id="video" class="py-20 bg-white w-full">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 relative">
+                Experience at Nisa Pudu Island
+                <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mt-4"></div>
+            </h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <p class="text-lg text-gray-700 mb-8 text-center">
+                    Watch this video to experience the stunning beauty of Nisa Pudu Island.
+                    See the clear sea water, clean white sand, and the still natural island panorama.
+                </p>
+                
+                <!-- Video Player - PORTRAIT FORMAT -->
+                <div class="video-wrapper">
+                    <div class="video-container" id="portraitVideoContainer">
+                        <video id="portraitVideo" controls playsinline 
+                               poster="Nisa_Pudu/kumparan.com 2.jpg">
+                            <source src="Nisa_Pudu/vidio.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        
+                        <!-- Fullscreen controls -->
+                        <div class="fullscreen-controls">
+                            <button class="fullscreen-btn" onclick="toggleFullscreen()" id="fullscreenBtn">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                            <button class="fullscreen-btn" onclick="exitFullscreen()" id="exitFullscreenBtn" style="display: none;">
+                                <i class="fas fa-compress"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Video Description -->
+                <div class="bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-xl border border-blue-200">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">About This Video</h3>
+                    <p class="text-gray-700 mb-4">
+                        This video showcases the beautiful natural beauty of the still pristine Nisa Pudu Island.
+                        The portrait format is optimized for display on mobile devices and sharing on social media.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-2">Video Highlights:</h4>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                    <span>Portrait format for mobile</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                    <span>Aerial views of the island</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                    <span>Clarity of sea water</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-2">Video Details:</h4>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <i class="fas fa-calendar text-blue-500 mt-1 mr-2"></i>
+                                    <span>Video sample year 2024</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-video text-blue-500 mt-1 mr-2"></i>
+                                    <span>Format: Portrait (9:16)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-clock text-blue-500 mt-1 mr-2"></i>
+                                    <span>Duration: 30 seconds</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-blue-100 rounded-lg">
+                        <p class="text-blue-800 text-sm flex items-start">
+                            <i class="fas fa-info-circle mr-2 mt-0.5"></i>
+                            <span>This video is formatted in portrait mode (9:16 aspect ratio) for optimal display on mobile devices and social media platforms like Instagram Reels and TikTok.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white w-full">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 relative">
+                Contact Us
+                <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-cyan-500 to-blue-400 rounded-full mt-4"></div>
+            </h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-gradient-to-br from-blue-50 to-white p-8 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">Contact Information</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-map-marker-alt text-blue-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">Address</h4>
+                                    <p class="text-gray-600">Nisa Pudu Island, Soro Barat Village, Kempo District, Dompu Regency, West Nusa Tenggara</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-cyan-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-info-circle text-cyan-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">Tourism Information</h4>
+                                    <p class="text-gray-600">Dompu Regency Tourism Office</p>
+                                    <p class="text-gray-600">+62 812 3456 7890</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-ship text-blue-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">Boat Rental</h4>
+                                    <p class="text-gray-600">Kempo Port, Kempo District</p>
+                                    <p class="text-gray-600">Rent directly on location</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-bold text-gray-800 mb-4">Follow Latest Info</h4>
+                            <div class="flex space-x-4">
+                                <a href="https://www.facebook.com/share/1ADCJAJ4Aw/" class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition duration-300">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="https://www.instagram.com/dompu_paradise?igsh=MWtlbTNvcWE4ZGh4bQ==" class="w-10 h-10 bg-pink-600 text-white rounded-full flex items-center justify-center hover:bg-pink-700 transition duration-300">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-blue-400 text-white rounded-full flex items-center justify-center hover:bg-blue-500 transition duration-300">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center hover:bg-red-700 transition duration-300">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-cyan-50 to-white p-8 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">Send Message & Questions</h3>
+                        
+                        <form id="contactForm" class="space-y-4">
+                            <div>
+                                <label for="name" class="block text-gray-700 mb-2">Full Name *</label>
+                                <input type="text" id="name" name="name"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"
+                                    placeholder="Enter your name" required>
+                            </div>
+
+                            <div>
+                                <label for="email" class="block text-gray-700 mb-2">Email Address *</label>
+                                <input type="email" id="email" name="email"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"
+                                    placeholder="Enter your email" required>
+                            </div>
+
+                            <div>
+                                <label for="subject" class="block text-gray-700 mb-2">Subject *</label>
+                                <input type="text" id="subject" name="subject"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"
+                                    placeholder="Enter message subject" required>
+                            </div>
+
+                            <div>
+                                <label for="message" class="block text-gray-700 mb-2">Message *</label>
+                                <textarea id="message" name="message" rows="4"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"
+                                    placeholder="Write your message or question" required></textarea>
+                            </div>
+
+                            <button type="submit" id="submitButton"
+                                class="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white py-3 rounded-lg font-semibold transition duration-300 transform hover:scale-[1.02] disabled:opacity-70 disabled:cursor-not-allowed">
+                                Send Message
+                            </button>
+                        </form>
+                        
+                        <div class="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                            <p class="text-yellow-800 text-sm">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                For urgent questions, please contact the DompuParadise Dompu Team directly.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-900 to-cyan-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-umbrella-beach mr-3"></i>
+                        Wadu Jao Beach
+                    </h3>
+                    <p class="text-blue-200">Hidden natural beauty in Dompu, West Nusa Tenggara. White sand, clear water, and captivating tranquility.</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#about" class="text-blue-200 hover:text-white transition duration-300">About Beach</a></li>
+                        <li><a href="#attractions" class="text-blue-200 hover:text-white transition duration-300">Attractions</a></li>
+                        <li><a href="#gallery" class="text-blue-200 hover:text-white transition duration-300">Photo Gallery</a></li>
+                        <li><a href="#video" class="text-blue-200 hover:text-white transition duration-300">Video</a></li>
+                        <li><a href="#facilities" class="text-blue-200 hover:text-white transition duration-300">Facilities</a></li>
+                        <li><a href="#location" class="text-blue-200 hover:text-white transition duration-300">Location</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Subscribe for Updates</h3>
+                    <p class="text-blue-200 mb-4">Get the latest information about Wadu Jao Beach</p>
+                    <div class="flex">
+                        <a href="https://www.instagram.com/dompu_paradise?igsh=MWtlbTNvcWE4ZGh4bQ==" class="w-10 h-10 bg-pink-600 text-white rounded-full flex items-center justify-center hover:bg-pink-700 transition duration-300">
+                        <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 pt-6 border-t border-blue-700 text-center">
+                <p>&copy; 2025 DompuParadise All Rights Reserved.</p>
+                <p class="mt-2 text-blue-300 text-sm">This website is developed for tourism promotion of Dompu, NTB from DompuParadise.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Image Modals -->
+    <div id="modal1" class="modal">
+        <span class="close" onclick="closeModal('modal1')">&times;</span>
+        <img class="modal-content" src="Nisa_Pudu/ntb.idntimes.com 1.avif">
+    </div>
+    
+    <div id="modal2" class="modal">
+        <span class="close" onclick="closeModal('modal2')">&times;</span>
+        <img class="modal-content" src="Nisa_Pudu/kumparan.com 2.jpg">
+    </div>
+    
+    <div id="modal3" class="modal">
+        <span class="close" onclick="closeModal('modal3')">&times;</span>
+        <img class="modal-content" src="Nisa_Pudu/mbojoklopedia.com 3.jpg">
+    </div>
+    
+    <div id="modal4" class="modal">
+        <span class="close" onclick="closeModal('modal4')">&times;</span>
+        <img class="modal-content" src="Nisa_Pudu/sumbawa.indonesia-tourism.com 4.jpg">
+    </div>
+    
+    <div id="modal5" class="modal">
+        <span class="close" onclick="closeModal('modal5')">&times;</span>
+        <img class="modal-content" src="Nisa_Pudu/aroundus.com 5.jpg">
+    </div>
+    
+    <div id="modal6" class="modal">
+        <span class="close" onclick="closeModal('modal6')">&times;</span>
+        <img class="modal-content" src="Nisa_Pudu/backpackerjakarta.com6.jpg">
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Fix untuk menghilangkan overflow horizontal
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pastikan body tidak overflow
+            document.body.style.maxWidth = '100vw';
+            document.body.style.overflowX = 'hidden';
+            
+            // Perbaiki semua elemen section
+            document.querySelectorAll('section').forEach(section => {
+                section.style.maxWidth = '100vw';
+                section.style.overflowX = 'hidden';
+            });
+            
+            // Hapus horizontal scroll jika ada
+            window.addEventListener('resize', function() {
+                document.body.style.overflowX = 'hidden';
+                document.documentElement.style.overflowX = 'hidden';
+            });
+            
+            // Cek apakah ada overflow horizontal
+            function checkHorizontalOverflow() {
+                if (document.documentElement.scrollWidth > window.innerWidth) {
+                    console.log('Horizontal overflow detected! Applying fixes...');
+                    // Apply fixes
+                    document.body.style.maxWidth = '100%';
+                    document.documentElement.style.maxWidth = '100%';
+                    
+                    // Periksa elemen yang menyebabkan overflow
+                    const allElements = document.body.getElementsByTagName('*');
+                    for (let el of allElements) {
+                        if (el.scrollWidth > el.clientWidth && el.scrollWidth > window.innerWidth) {
+                            el.style.maxWidth = '100%';
+                            el.style.overflowX = 'hidden';
+                        }
+                    }
+                }
+            }
+            
+            // Jalankan pengecekan
+            checkHorizontalOverflow();
+            window.addEventListener('load', checkHorizontalOverflow);
+            window.addEventListener('resize', checkHorizontalOverflow);
+        });
+
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuButton').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu.classList.contains('max-h-0')) {
+                mobileMenu.classList.remove('max-h-0');
+                mobileMenu.classList.add('max-h-96');
+            } else {
+                mobileMenu.classList.add('max-h-0');
+                mobileMenu.classList.remove('max-h-96');
+            }
+        });
+
+        // Explore Button
+        document.getElementById('exploreBtn').addEventListener('click', function() {
+            document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Back to Top Button
+        const backToTopBtn = document.getElementById('backToTop');
+        window.addEventListener('scroll', function() {
+            // Scroll Progress
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+            
+            // Show/hide back to top button
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.remove('opacity-0', 'invisible');
+                backToTopBtn.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopBtn.classList.add('opacity-0', 'invisible');
+                backToTopBtn.classList.remove('opacity-100', 'visible');
+            }
+        });
+
+        // Back to Top functionality
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Load More Gallery Button
+        document.getElementById('loadMoreGallery').addEventListener('click', function() {
+            const btn = this;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Loading...';
+            btn.disabled = true;
+            
+            // Simulate loading
+            setTimeout(function() {
+                btn.innerHTML = '<i class="fas fa-check mr-2"></i>More Photos Coming Soon!';
+                btn.classList.remove('from-blue-600', 'to-cyan-500', 'hover:from-blue-700', 'hover:to-cyan-600');
+                btn.classList.add('from-green-500', 'to-green-600');
+            }, 1500);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Close mobile menu if open
+                    document.getElementById('mobileMenu').classList.add('max-h-0');
+                    document.getElementById('mobileMenu').classList.remove('max-h-96');
+                    
+                    // Scroll to target
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Modal Functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close modal with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    if (modal.style.display === 'block') {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            }
+        });
+
+        // Portrait Video Fullscreen Functionality
+        const videoContainer = document.getElementById('portraitVideoContainer');
+        const portraitVideo = document.getElementById('portraitVideo');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const exitFullscreenBtn = document.getElementById('exitFullscreenBtn');
+        
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                videoContainer.classList.add('fullscreen');
+                document.body.style.overflow = 'hidden';
+                
+                if (videoContainer.requestFullscreen) {
+                    videoContainer.requestFullscreen();
+                } else if (videoContainer.webkitRequestFullscreen) {
+                    videoContainer.webkitRequestFullscreen();
+                } else if (videoContainer.msRequestFullscreen) {
+                    videoContainer.msRequestFullscreen();
+                }
+                
+                fullscreenBtn.style.display = 'none';
+                exitFullscreenBtn.style.display = 'flex';
+            }
+        }
+        
+        function exitFullscreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+            
+            videoContainer.classList.remove('fullscreen');
+            document.body.style.overflow = 'auto';
+            fullscreenBtn.style.display = 'flex';
+            exitFullscreenBtn.style.display = 'none';
+        }
+        
+        // Listen for fullscreen change events
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        document.addEventListener('msfullscreenchange', handleFullscreenChange);
+        
+        function handleFullscreenChange() {
+            if (!document.fullscreenElement && 
+                !document.webkitFullscreenElement && 
+                !document.msFullscreenElement) {
+                videoContainer.classList.remove('fullscreen');
+                document.body.style.overflow = 'auto';
+                fullscreenBtn.style.display = 'flex';
+                exitFullscreenBtn.style.display = 'none';
+            }
+        }
+        
+        // Force portrait orientation in fullscreen
+        portraitVideo.addEventListener('fullscreenchange', function() {
+            if (document.fullscreenElement) {
+                // Ensure video maintains portrait aspect
+                portraitVideo.style.objectFit = 'contain';
+                portraitVideo.style.backgroundColor = '#000';
+            } else {
+                portraitVideo.style.objectFit = 'cover';
+            }
+        });
+
+        // Form submission (simulasi)
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validasi semua field terlebih dahulu
+            const nameField = document.getElementById('name');
+            const emailField = document.getElementById('email');
+            const subjectField = document.getElementById('subject');
+            const messageField = document.getElementById('message');
+            
+            const isNameValid = validateField(nameField);
+            const isEmailValid = validateField(emailField);
+            const isSubjectValid = validateField(subjectField);
+            const isMessageValid = validateField(messageField);
+            
+            if (!isNameValid || !isEmailValid || !isSubjectValid || !isMessageValid) {
+                showAlert('Please fix errors in the form before sending.', 'error');
+                return;
+            }
+            
+            const submitBtn = document.getElementById('submitButton');
+            const originalText = submitBtn.innerHTML;
+            
+            // Tampilkan loading state
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+            submitBtn.disabled = true;
+            
+            // Simulasi pengiriman
+            setTimeout(function() {
+                showAlert('Thank you! Your message has been sent. We will reply via email soon.', 'success');
+                document.getElementById('contactForm').reset();
+                
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 1500);
+        });
+
+        // Alert system
+        function showAlert(message, type = 'info') {
+            const existingAlert = document.querySelector('.custom-alert');
+            if (existingAlert) existingAlert.remove();
+
+            const alert = document.createElement('div');
+            alert.className = `custom-alert fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg border-l-4 transform transition-all duration-300 ${
+                type === 'error' ? 'bg-red-50 border-red-500 text-red-700' :
+                type === 'success' ? 'bg-green-50 border-green-500 text-green-700' :
+                'bg-blue-50 border-blue-500 text-blue-700'
+            }`;
+            
+            alert.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${
+                        type === 'error' ? 'fa-exclamation-circle' :
+                        type === 'success' ? 'fa-check-circle' :
+                        'fa-info-circle'
+                    } mr-3"></i>
+                    <span>${message}</span>
+                    <button class="ml-4 text-gray-500 hover:text-gray-700" onclick="this.parentElement.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+
+            document.body.appendChild(alert);
+
+            setTimeout(() => alert.remove(), 5000);
+        }
+
+        // Form validation
+        const form = document.getElementById('contactForm');
+        const formInputs = form.querySelectorAll('input, textarea');
+        
+        formInputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                validateField(this);
+            });
+            
+            // Real-time validation while typing
+            input.addEventListener('input', function() {
+                if (this.value.trim().length > 0) {
+                    clearFieldError(this);
+                }
+            });
+        });
+
+        function validateField(field) {
+            const value = field.value.trim();
+            let isValid = true;
+            let errorMessage = '';
+
+            if (field.id === 'name' && value.length < 2) {
+                isValid = false;
+                errorMessage = 'Name must be at least 2 characters';
+            }
+            else if (field.id === 'subject' && value.length < 5) {
+                isValid = false;
+                errorMessage = 'Subject must be at least 5 characters';
+            }
+            else if (field.id === 'email') {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(value)) {
+                    isValid = false;
+                    errorMessage = 'Invalid email format';
+                }
+            }
+            else if (field.id === 'message' && value.length < 10) {
+                isValid = false;
+                errorMessage = 'Message must be at least 10 characters';
+            }
+
+            if (!isValid) {
+                showFieldError(field, errorMessage);
+            } else {
+                clearFieldError(field);
+            }
+
+            return isValid;
+        }
+
+        function showFieldError(field, message) {
+            field.classList.remove('border-gray-300');
+            field.classList.add('border-red-500');
+            clearFieldError(field);
+
+            const errorElement = document.createElement('div');
+            errorElement.className = 'error-message text-red-500 text-sm mt-1 flex items-center';
+            errorElement.innerHTML = `<i class="fas fa-exclamation-circle mr-1"></i> ${message}`;
+            field.parentNode.appendChild(errorElement);
+        }
+
+        function clearFieldError(field) {
+            const errorElement = field.parentNode.querySelector('.error-message');
+            if (errorElement) errorElement.remove();
+            field.classList.remove('border-red-500');
+            field.classList.add('border-gray-300');
+        }
+    </script>
+</body>
+</html>

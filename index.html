@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DompuParadise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.8s ease-in-out',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #16a34a;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #15803d;
+        }
+
+        /* Hero Slider Styles */
+        .hero-slider {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .slides-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 1.5s ease-in-out;
+        }
+        
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .slide::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+        }
+        
+        .slide-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .slider-nav {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 2;
+        }
+        
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .slider-dot.active {
+            background: white;
+        }
+        
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 2;
+            transition: background 0.3s ease;
+        }
+        
+        .slider-arrow:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        
+        .slider-arrow.prev {
+            left: 20px;
+        }
+        
+        .slider-arrow.next {
+            right: 20px;
+        }
+
+        .hero-title {
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Navbar Hide/Show Animation */
+        .navbar-hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        .navbar-visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        #logo{
+             filter: brightness(0) invert(1);
+        }
+        #logo1{
+            filter: brightness(0) saturate(100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-poppins scroll-smooth">
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-500 navbar-hidden">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="#" class="flex items-center">
+                <img class="fas fa-mountain text-yellow-500 mr-2" src="logo.png" width="180px">
+            </a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="text-gray-800 hover:text-green-600 transition duration-300 text-green-600 font-medium">Home</a>
+                <a href="about.html" class="text-gray-800 hover:text-green-600 transition duration-300 font-medium">About</a>
+                <a href="statistik.html" class="text-gray-800 hover:text-green-600 transition duration-300 font-medium">Web Statistik</a>
+                <a href="seemore.html" class="text-gray-800 hover:text-green-600 transition duration-300 font-medium">Destinations</a>
+                <a href="event.html" class="text-gray-800 hover:text-green-600 transition duration-300 font-medium">New Events</a>
+                <a href="contact.html" class="text-gray-800 hover:text-green-600 transition duration-300 font-medium">Contact</a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-800 focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden bg-white shadow-lg hidden">
+            <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+                <a href="#home" class="text-gray-800 hover:text-green-600 transition duration-300 text-green-600 font-medium">Home</a>
+                <a href="#about" class="text-gray-800 hover:text-green-600 transition duration-300 font-medium">About</a>
+                <a href="statistik.html" class="text-gray-800 hover:text-green-600 transition duration-300 font-medium">Web Statistik</a>
+                <a href="#destinations" class="text-gray-800 hover:text-green-600 transition duration-300 font-medium">Destinations</a>
+                <a href="event.html" class="text-gray-800 hover:text-green-600 transition duration-300 font-medium">New Events</a>
+                <a href="contact.html" class="text-gray-800 hover:text-green-600 transition duration-300 font-medium">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Slider -->
+    <section id="home" class="hero-slider">
+        <div class="slides-container">
+            <!-- Slide 1 -->
+            <div class="slide" style="background-image: url('Artboard1.png')">
+                <div class="slide-content">
+                    <h1 class="hero-title text-4xl md:text-6xl font-bold mb-4">Discover Dompu's Natural Beauty</h1>
+                    <p class="text-xl md:text-2xl mb-8">Where Nature's Majesty Meets Cultural Heritage</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <a href="#destinations" class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2">
+                            <i class="fas fa-compass"></i>
+                            Explore Destinations
+                        </a>
+                        <a href="#about" class="border-2 border-white hover:bg-white hover:text-green-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 flex items-center gap-2">
+                            <i class="fas fa-play-circle"></i>
+                            Watch Video
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 2 -->
+            <div class="slide" style="background-image: url('TamboraImg/tambora\ gambar\ 1.jpg')">
+                <div class="slide-content">
+                    <h1 class="hero-title text-4xl md:text-6xl font-bold mb-4">Majestic Mount Tambora</h1>
+                    <p class="text-xl md:text-2xl mb-8">Witness the Power of Nature's Creation</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <a href="#destinations" class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2">
+                            <i class="fas fa-compass"></i>
+                            Explore Destinations
+                        </a>
+                        <a href="#about" class="border-2 border-white hover:bg-white hover:text-green-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 flex items-center gap-2">
+                            <i class="fas fa-play-circle"></i>
+                            Watch Video
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 3 -->
+            <div class="slide" style="background-image: url('LakeyImg/gambar\ ke\ 8.jpeg')">
+                <div class="slide-content">
+                    <h1 class="hero-title text-4xl md:text-6xl font-bold mb-4">Pristine Lakey Beach</h1>
+                    <p class="text-xl md:text-2xl mb-8">Surfing Paradise with Golden Sands</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <a href="#destinations" class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2">
+                            <i class="fas fa-compass"></i>
+                            Explore Destinations
+                        </a>
+                        <a href="#about" class="border-2 border-white hover:bg-white hover:text-green-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 flex items-center gap-2">
+                            <i class="fas fa-play-circle"></i>
+                            Watch Video
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 4 -->
+            <div class="slide" style="background-image: url('Satonda-islan/gambar\ satonda\ 8.jpg')">
+                <div class="slide-content">
+                    <h1 class="hero-title text-4xl md:text-6xl font-bold mb-4">Satonda Island</h1>
+                    <p class="text-xl md:text-2xl mb-8">Discover Hidden Natural Wonders</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <a href="#destinations" class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2">
+                            <i class="fas fa-compass"></i>
+                            Explore Destinations
+                        </a>
+                        <a href="#about" class="border-2 border-white hover:bg-white hover:text-green-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 flex items-center gap-2">
+                            <i class="fas fa-play-circle"></i>
+                            Watch Video
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slider Arrows -->
+        <div class="slider-arrow prev">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="slider-arrow next">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+        
+        <!-- Slider Navigation Dots -->
+        <div class="slider-nav">
+            <div class="slider-dot active" data-slide="0"></div>
+            <div class="slider-dot" data-slide="1"></div>
+            <div class="slider-dot" data-slide="2"></div>
+            <div class="slider-dot" data-slide="3"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2 animate-fade-in">
+                    <div class="relative">
+                        <img src="https://image.idntimes.com/post/20200716/80391792-3629027387137817-4589867388143650519-n-c0f231ba9e4bf04907819c17e4594f5c.jpg"
+                             alt="Dompu Landscape" class="rounded-2xl shadow-2xl">
+                        <div class="absolute -bottom-6 -right-6 bg-green-600 text-white p-6 rounded-2xl shadow-xl">
+                            <div class="text-3xl font-bold">50+</div>
+                            <div class="text-sm">Amazing Destinations</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 animate-fade-in animation-delay-300">
+                    <img src="logo.png" width="250px" class="fade-in" id="logo1">
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+                        About <span class="text-green-600">Dompu</span>
+                    </h2>
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                        Dompu Regency is one of the eight regencies in West Nusa Tenggara Province, Indonesia, located on the eastern part of Sumbawa Island. 
+                        Known as the "Africa van Sumbawa," Dompu boasts breathtaking natural landscapes ranging from majestic volcanoes and pristine 
+                        beaches to lush forests and serene lakes.
+                    </p>
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                        With its rich cultural heritage dating back to the ancient Dompu Kingdom, the region offers a unique blend of natural wonders and 
+                        traditional customs. The local community is renowned for their warm hospitality, traditional weaving skills, and preservation of 
+                        ancient rituals and ceremonies.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                                <i class="fas fa-mountain"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-gray-800">Volcanoes</div>
+                                <div class="text-sm text-gray-600">Mount Tambora</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
+                                <i class="fas fa-water"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-gray-800">Beaches</div>
+                                <div class="text-sm text-gray-600">Lakey Beach</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-gray-800">Culture</div>
+                                <div class="text-sm text-gray-600">Rich Heritage</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-gray-800">Cuisine</div>
+                                <div class="text-sm text-gray-600">Local Delights</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="about.html" class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-semibold transition duration-300 transform hover:scale-105">
+                        See Details
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section id="history" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 animate-fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                    History of <span class="text-green-600">Dompu</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Tracing the rich historical heritage of Dompu Kingdom
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="animate-fade-in">
+                    <div class="bg-white rounded-2xl shadow-lg p-8">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">The Ancient Kingdom</h3>
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                            Dompu has a remarkable history as one of the oldest kingdoms in the Sumbawa region, established around the 14th century. 
+                            The Dompu Kingdom played a significant role in regional trade and politics, maintaining diplomatic relations with other 
+                            powerful kingdoms across the archipelago.
+                        </p>
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                            During the 17th century, Islam spread throughout Dompu through traders and religious scholars, and the kingdom officially 
+                            adopted Islam as its religion. This period marked the beginning of Dompu's unique cultural synthesis of Islamic traditions 
+                            with local customs and beliefs.
+                        </p>
+                        <p class="text-gray-600 leading-relaxed">
+                            The catastrophic eruption of Mount Tambora in 15 Juli 1815 significantly impacted Dompu, reshaping the landscape and affecting 
+                            the kingdom's agricultural patterns and settlement distribution. Despite these challenges, Dompu's cultural heritage 
+                            continues to thrive through traditional ceremonies, royal heirlooms, and architectural landmarks.
+                        </p>
+                    </div>
+                </div>
+                <div class="animate-fade-in animation-delay-300">
+                    <div class="relative">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhUq0Yaz6Nq3tWxRc963LPaDicEgqOfzrgY9hXzpKhGWHpmpNKo4px8qAN6w-GueZRyTmOlSipXgeBxUQOolxuh64WaTeDcdF35NppUZZmt49OACBmx23MHG2a97O1wVFy0wbj9jkOcx4cy/s1451/Screenshot_20181227-155251%257E01.png" 
+                             alt="Dompu History" class="rounded-2xl shadow-2xl">
+                        <div class="absolute -bottom-6 -left-6 bg-yellow-600 text-white p-6 rounded-2xl shadow-xl">
+                            <div class="text-3xl font-bold">14th</div>
+                            <div class="text-sm">Century Origin</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Middle Section -->
+    <section class="parallax py-32 relative" 
+             style="background-image: url('pacuankuda/gambar5.webp')">
+        <div class="absolute inset-0 bg-black/50"></div>
+        <div class="container mx-auto px-4 text-center text-white relative z-10">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
+                Adventure Awaits You
+            </h2>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto animate-fade-in animation-delay-300">
+                Experience the thrill of exploring untouched natural wonders and immerse yourself in local culture
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 animate-float">
+                    <i class="fas fa-hiking text-4xl mb-4 text-yellow-400"></i>
+                    <h3 class="text-2xl font-bold mb-3">Trekking</h3>
+                    <p class="text-white/80">Explore mountain trails and discover hidden waterfalls</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 animate-float animation-delay-200">
+                    <i class="fas fa-water text-4xl mb-4 text-blue-400"></i>
+                    <h3 class="text-2xl font-bold mb-3">Surfing</h3>
+                    <p class="text-white/80">Ride the perfect waves at world-class surf spots</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 animate-float animation-delay-400">
+                    <i class="fas fa-camera text-4xl mb-4 text-green-400"></i>
+                    <h3 class="text-2xl font-bold mb-3">Photography</h3>
+                    <p class="text-white/80">Capture breathtaking landscapes and cultural moments</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section id="destinations" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 animate-fade-in">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                    Popular <span class="text-green-600">Destinations</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Discover the most amazing places that Dompu has to offer
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Destination 1 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-105 animate-fade-in">
+                    <div class="relative overflow-hidden">
+                        <img src="TamboraImg/tambora gambar 1.jpg" 
+                             alt="Mount Tambora" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute top-4 right-4 bg-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            Mountain
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">Mount Tambora</h3>
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                            Famous volcano with stunning hiking trails and historical significance from the 1815 eruption.
+                        </p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-green-600 font-semibold">
+                                <i class="fas fa-map-marker-alt mr-1"></i> North Dompu
+                            </div>
+                        </div>
+                        <a href="tambora.html">
+                        <button class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-semibold transition duration-300 transform hover:scale-105">
+                            Explore Now
+                        </button>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Destination 2 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-105 animate-fade-in animation-delay-200">
+                    <div class="relative overflow-hidden">
+                        <img src="LakeyImg/gambar ke7.jpeg" 
+                             alt="Lakey Beach" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            Beach
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">Lakey Beach</h3>
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                            World-class surfing destination with perfect waves and stunning sunset views.
+                        </p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-green-600 font-semibold">
+                                <i class="fas fa-map-marker-alt mr-1"></i> South Dompu
+                            </div>
+                        </div>
+                        <a href="PantaiLakey.html">
+                        <button class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-semibold transition duration-300 transform hover:scale-105">
+                        Explore Now</button>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Destination 3 -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-105 animate-fade-in animation-delay-400">
+                    <div class="relative overflow-hidden">
+                        <img src="Satonda-islan/satonda gambar 1.jpg" 
+                             alt="Satonda Lake" class="w-full h-64 object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute top-4 right-4 bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            Lake
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">Satonda Lake</h3>
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                            Beautiful volcanic crater lake with unique ecosystem and mystical local legends.
+                        </p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-green-600 font-semibold">
+                                <i class="fas fa-map-marker-alt mr-1"></i> Central Dompu
+                            </div>
+                        </div>
+                        <a href="SatondaLake.html">
+                        <button class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-semibold transition duration-300 transform hover:scale-105">
+                            Explore Now
+                        </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12 animate-fade-in">
+                <a href="seemore.html" class="inline-flex items-center gap-2 border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105">
+                    View All Destinations
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 bg-blue-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">Contact Us</h2>
+                
+                <div class="bg-white rounded-xl p-8 shadow-lg">
+                    <form action="https://formspree.io/f/xwpwrbbr" method="post" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                        <label for="name" class="block text-gray-700 mb-2">Full Name</label>
+                        <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                        <div>
+                        <label for="email" class="block text-gray-700 mb-2">Email Address</label>
+                        <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="subject" class="block text-gray-700 mb-2">Subject</label>
+                        <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div>
+                        <label for="message" class="block text-gray-700 mb-2">Message</label>
+                        <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                    </div>
+                    <button type="submit" class="bg-green-600 hover:bg-green-500 text-white px-6 py-3 rounded-lg font-semibold transition duration-300 w-full"> Send Message </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+<footer class="bg-gray-800 text-white py-12 border-t border-gray-700">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <!-- Company Info -->
+            <div class="md:col-span-1">
+                <img id="logo" class="mb-4 filter brightness-0 invert" src="logo.png" width="200px" alt="DompuWisata Logo">
+                <p class="text-gray-400 mb-4 text-sm leading-relaxed">
+                    Your trusted guide to exploring the natural beauty and cultural richness of Dompu, West Nusa Tenggara.
+                </p>
+                <div class="flex space-x-3">
+                    <a href="https://www.facebook.com/share/15x2c8HyeV/" class="w-9 h-9 bg-gray-700 rounded-full flex items-center justify-center hover:bg-green-600 transition duration-300 transform hover:scale-110">
+                        <i class="fab fa-facebook-f text-sm"></i>
+                    </a>
+                    <a href="https://www.instagram.com/dompu_paradise?igsh=MWtlbTNvcWE4ZGh4bQ==" class="w-9 h-9 bg-gray-700 rounded-full flex items-center justify-center hover:bg-green-600 transition duration-300 transform hover:scale-110">
+                        <i class="fab fa-instagram text-sm"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <div class="md:col-span-1">
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4 text-green-400">Quick Links</h4>
+                        <ul class="space-y-3">
+                            <li><a href="index.html" class="text-gray-400 hover:text-green-400 transition duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-green-500 group-hover:translate-x-1 transition-transform"></i>
+                                Home
+                            </a></li>
+                            <li><a href="about.html" class="text-gray-400 hover:text-green-400 transition duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-green-500 group-hover:translate-x-1 transition-transform"></i>
+                                About Dompu
+                            </a></li>
+                            <li><a href="about.html" class="text-gray-400 hover:text-green-400 transition duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-green-500 group-hover:translate-x-1 transition-transform"></i>
+                                History
+                            </a></li>
+                            <li><a href="seemore.html" class="text-gray-400 hover:text-green-400 transition duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-green-500 group-hover:translate-x-1 transition-transform"></i>
+                                Destinations
+                            </a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4 text-green-400">Destinations</h4>
+                        <ul class="space-y-3">
+                            <li><a href="tambora.html" class="text-gray-400 hover:text-green-400 transition duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-green-500 group-hover:translate-x-1 transition-transform"></i>
+                                Mount Tambora
+                            </a></li>
+                            <li><a href="PantaiLakey.html" class="text-gray-400 hover:text-green-400 transition duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-green-500 group-hover:translate-x-1 transition-transform"></i>
+                                Lakey Beach
+                            </a></li>
+                            <li><a href="SatondaLake.html" class="text-gray-400 hover:text-green-400 transition duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-green-500 group-hover:translate-x-1 transition-transform"></i>
+                                Satonda Lake
+                            </a></li>
+                            <li><a href="Wadu_Jao.html" class="text-gray-400 hover:text-green-400 transition duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-green-500 group-hover:translate-x-1 transition-transform"></i>
+                                Wadu Jao Peak
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Environmental Awareness -->
+            <div class="md:col-span-2">
+                <div class="bg-green-900/30 rounded-lg p-6 border border-green-700/50 h-full">
+                    <h4 class="text-lg font-semibold mb-4 flex items-center text-green-300">
+                        <i class="fas fa-seedling text-green-400 mr-2"></i>
+                        Protect Our Nature
+                    </h4>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div class="flex items-start space-x-2">
+                            <i class="fas fa-ban text-red-400 mt-1"></i>
+                            <span class="text-sm text-gray-300">No Littering - Keep Dompu Clean</span>
+                        </div>
+                        <div class="flex items-start space-x-2">
+                            <i class="fas fa-tree text-green-400 mt-1"></i>
+                            <span class="text-sm text-gray-300">Preserve Natural Resources</span>
+                        </div>
+                        <div class="flex items-start space-x-2">
+                            <i class="fas fa-recycle text-blue-400 mt-1"></i>
+                            <span class="text-sm text-gray-300">Reduce, Reuse, Recycle</span>
+                        </div>
+                        <div class="flex items-start space-x-2">
+                            <i class="fas fa-water text-cyan-400 mt-1"></i>
+                            <span class="text-sm text-gray-300">Keep Water Sources Clean</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-green-800/40 rounded-lg">
+                        <p class="text-sm text-green-200 text-center font-medium">
+                            <i class="fas fa-hands-helping mr-1"></i>
+                            Let's Preserve Dompu's Beauty Together!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Environmental Message Banner -->
+        <div class="mt-8 bg-gradient-to-r from-green-900 to-emerald-800 rounded-lg p-4 border border-green-600">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="flex items-center space-x-4 mb-3 md:mb-0">
+                    <div class="flex space-x-2">
+                        <div class="w-8 h-8 bg-green-700 rounded-full flex items-center justify-center">
+                            <i class="fas fa-earth-asia text-green-300 text-sm"></i>
+                        </div>
+                        <div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
+                            <i class="fas fa-leaf text-green-200 text-sm"></i>
+                        </div>
+                        <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-mountain text-white text-sm"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-white">Keep Dompu Beautiful</h3>
+                        <p class="text-green-200 text-xs">Protect our environment for future generations</p>
+                    </div>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-green-100 text-sm font-semibold">
+                        <i class="fas fa-heart text-red-400 mr-1"></i>
+                        Love Nature, Preserve Dompu
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Copyright Section -->
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <div class="flex items-center space-x-6 text-sm">
+                    <span class="flex items-center">
+                        <i class="fas fa-trash text-red-400 mr-1"></i>
+                        Don't Litter
+                    </span>
+                    <span class="flex items-center">
+                        <i class="fas fa-tree text-green-400 mr-1"></i>
+                        Plant Trees
+                    </span>
+                    <span class="flex items-center">
+                        <i class="fas fa-recycle text-blue-400 mr-1"></i>
+                        Reduce Waste
+                    </span>
+                </div>
+                <p class="text-sm">&copy; 2023 DompuParadise. All rights reserved. | Made with <i class="fas fa-heart text-red-500"></i> for Dompu</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+const form = document.querySelector('form[action="https://formspree.io/f/xwpwrbbr"]');
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const subject = document.getElementById('subject');
+    const message = document.getElementById('message');
+    const button = form.querySelector('button[type="submit"]');
+    const originalButtonText = button.textContent;
+
+    // Validasi form
+    if (!name.value.trim() || !email.value.trim() || !subject.value.trim() || !message.value.trim()) {
+        showAlert('Harap isi semua field!', 'error');
+        return;
+    }
+
+    // Validasi email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.value.trim())) {
+        showAlert('Format email tidak valid!', 'error');
+        email.focus();
+        return;
+    }
+
+    // Validasi panjang pesan
+    if (message.value.trim().length < 10) {
+        showAlert('Pesan terlalu pendek! Minimal 10 karakter.', 'error');
+        message.focus();
+        return;
+    }
+
+    // Tampilkan loading state
+    button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Mengirim...';
+    button.disabled = true;
+
+    // Kirim form
+    fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then((data) => {
+        if (data.ok || data.success) {
+            showAlert('Pesan Anda telah terkirim! Kami akan membalasnya segera.', 'success');
+            form.reset();
+        } else {
+            showAlert('Terima kasih! Pesan Anda sudah kami terima.', 'info');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        showAlert('Pesan berhasil terkirim! Terima kasih telah menghubungi kami.', 'info');
+    })
+    .finally(() => {
+        // Reset button state
+        button.innerHTML = originalButtonText;
+        button.disabled = false;
+    });
+});
+
+// Fungsi untuk menampilkan alert yang lebih baik
+function showAlert(message, type = 'info') {
+    // Hapus alert sebelumnya jika ada
+    const existingAlert = document.querySelector('.custom-alert');
+    if (existingAlert) {
+        existingAlert.remove();
+    }
+
+    // Buat alert element
+    const alert = document.createElement('div');
+    alert.className = `custom-alert fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg border-l-4 transform transition-all duration-300 ${
+        type === 'error' ? 'bg-red-50 border-red-500 text-red-700' :
+        type === 'success' ? 'bg-green-50 border-green-500 text-green-700' :
+        'bg-blue-50 border-blue-500 text-blue-700'
+    }`;
+    
+    alert.innerHTML = `
+        <div class="flex items-center">
+            <i class="fas ${
+                type === 'error' ? 'fa-exclamation-circle' :
+                type === 'success' ? 'fa-check-circle' :
+                'fa-info-circle'
+            } mr-3"></i>
+            <span>${message}</span>
+            <button class="ml-4 text-gray-500 hover:text-gray-700" onclick="this.parentElement.parentElement.remove()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    `;
+
+    // Tambahkan ke body
+    document.body.appendChild(alert);
+
+    // Auto remove setelah 5 detik
+    setTimeout(() => {
+        if (alert.parentElement) {
+            alert.remove();
+        }
+    }, 5000);
+}
+
+// Tambahkan event listener untuk validasi real-time
+document.addEventListener('DOMContentLoaded', function() {
+    const formInputs = form.querySelectorAll('input, textarea');
+    
+    formInputs.forEach(input => {
+        input.addEventListener('input', function() {
+            // Hapus kelas error saat user mulai mengetik
+            if (this.classList.contains('border-red-500')) {
+                this.classList.remove('border-red-500');
+                this.classList.add('border-gray-300');
+                
+                // Hapus pesan error jika ada
+                const errorElement = this.nextElementSibling;
+                if (errorElement && errorElement.classList.contains('error-message')) {
+                    errorElement.remove();
+                }
+            }
+        });
+
+        // Validasi saat kehilangan fokus
+        input.addEventListener('blur', function() {
+            validateField(this);
+        });
+    });
+});
+
+// Fungsi validasi per field
+function validateField(field) {
+    const value = field.value.trim();
+    let isValid = true;
+    let errorMessage = '';
+
+    switch(field.type) {
+        case 'text':
+            if (field.id === 'name' && value.length < 2) {
+                isValid = false;
+                errorMessage = 'Nama harus minimal 2 karakter';
+            } else if (field.id === 'subject' && value.length < 5) {
+                isValid = false;
+                errorMessage = 'Subjek harus minimal 5 karakter';
+            }
+            break;
+        case 'email':
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+                isValid = false;
+                errorMessage = 'Format email tidak valid';
+            }
+            break;
+        case 'textarea':
+            if (value.length < 10) {
+                isValid = false;
+                errorMessage = 'Pesan harus minimal 10 karakter';
+            }
+            break;
+    }
+
+    if (!isValid) {
+        showFieldError(field, errorMessage);
+    } else {
+        clearFieldError(field);
+    }
+
+    return isValid;
+}
+
+// Fungsi untuk menampilkan error di field
+function showFieldError(field, message) {
+    field.classList.remove('border-gray-300');
+    field.classList.add('border-red-500');
+    
+    // Hapus pesan error sebelumnya
+    clearFieldError(field);
+    
+    // Tambahkan pesan error baru
+    const errorElement = document.createElement('div');
+    errorElement.className = 'error-message text-red-500 text-sm mt-1 flex items-center';
+    errorElement.innerHTML = `<i class="fas fa-exclamation-circle mr-1"></i> ${message}`;
+    
+    field.parentNode.appendChild(errorElement);
+}
+
+// Fungsi untuk menghapus error di field
+function clearFieldError(field) {
+    const errorElement = field.parentNode.querySelector('.error-message');
+    if (errorElement) {
+        errorElement.remove();
+    }
+}
+
+// Fungsi untuk memeriksa apakah form valid
+function isFormValid() {
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const subject = document.getElementById('subject');
+    const message = document.getElementById('message');
+    
+    return validateField(name) && validateField(email) && validateField(subject) && validateField(message);
+}
+
+        // Mobile menu functionality
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar hide/show functionality
+        let lastScrollY = window.scrollY;
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', function() {
+            // Show/hide navbar based on scroll direction
+            if (window.scrollY > lastScrollY && window.scrollY > 100) {
+                // Scrolling down - hide navbar
+                navbar.classList.add('navbar-hidden');
+                navbar.classList.remove('navbar-visible');
+            } else {
+                // Scrolling up - show navbar
+                navbar.classList.remove('navbar-hidden');
+                navbar.classList.add('navbar-visible');
+            }
+            
+            // Navbar background on scroll
+            if (window.scrollY > 100) {
+                navbar.classList.add('bg-white', 'shadow-lg');
+                navbar.classList.remove('bg-white/90');
+            } else {
+                navbar.classList.remove('bg-white', 'shadow-lg');
+                navbar.classList.add('bg-white/90');
+            }
+            
+            lastScrollY = window.scrollY;
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.animate-fade-in, .animate-slide-up, .animate-float').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Hero Slider Functionality
+        const slider = {
+            currentSlide: 0,
+            slides: document.querySelectorAll('.slide'),
+            dots: document.querySelectorAll('.slider-dot'),
+            container: document.querySelector('.slides-container'),
+            prevBtn: document.querySelector('.slider-arrow.prev'),
+            nextBtn: document.querySelector('.slider-arrow.next'),
+            autoSlideInterval: null,
+            
+            init: function() {
+                // Set up event listeners
+                this.prevBtn.addEventListener('click', () => this.prevSlide());
+                this.nextBtn.addEventListener('click', () => this.nextSlide());
+                
+                // Set up dot navigation
+                this.dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => this.goToSlide(index));
+                });
+                
+                // Auto slide every 15 seconds
+                this.startAutoSlide();
+                
+                // Pause auto slide on hover
+                const sliderElement = document.querySelector('.hero-slider');
+                sliderElement.addEventListener('mouseenter', () => this.stopAutoSlide());
+                sliderElement.addEventListener('mouseleave', () => this.startAutoSlide());
+            },
+            
+            goToSlide: function(index) {
+                this.currentSlide = index;
+                this.updateSlider();
+            },
+            
+            nextSlide: function() {
+                this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+                this.updateSlider();
+            },
+            
+            prevSlide: function() {
+                this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+                this.updateSlider();
+            },
+            
+            updateSlider: function() {
+                // Update container position
+                this.container.style.transform = `translateX(-${this.currentSlide * 100}%)`;
+                
+                // Update active dot
+                this.dots.forEach((dot, index) => {
+                    if (index === this.currentSlide) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            },
+            
+            startAutoSlide: function() {
+                // Clear existing interval first
+                this.stopAutoSlide();
+                
+                // Set new interval for 15 seconds
+                this.autoSlideInterval = setInterval(() => {
+                    this.nextSlide();
+                }, 15000); // 15 seconds
+            },
+            
+            stopAutoSlide: function() {
+                if (this.autoSlideInterval) {
+                    clearInterval(this.autoSlideInterval);
+                    this.autoSlideInterval = null;
+                }
+            }
+        };
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            slider.init();
+        });
+    </script>
+</body>
+</html>

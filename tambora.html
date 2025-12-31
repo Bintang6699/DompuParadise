@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mount Tambora - Natural Wonder in Dompu NTB</title>
+    <meta name="description" content="Explore Mount Tambora in Dompu, NTB - a volcano with a powerful eruption history and breathtaking scenery">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .video-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translateX(-50%) translateY(-50%);
+            z-index: -1;
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+        }
+        
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+        
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        
+        .gallery-item {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow: auto;
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            margin-top: 2%;
+        }
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+        }
+        
+        .mountain-animation {
+            animation: mountain 3s ease-in-out infinite;
+        }
+        
+        @keyframes mountain {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .map-container {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            height: 400px;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 3rem;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #8B4513, #A0522D);
+            border-radius: 2px;
+        }
+        
+        .stats-card {
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-card {
+            border-left: 4px solid #8B4513;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            border-left-color: #A0522D;
+            transform: translateX(5px);
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .mountain-bg {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+        }
+        
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                height: 70vh;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-content p {
+                font-size: 1rem;
+            }
+        }
+        
+        .attribution {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+        
+        .attribution a {
+            color: #8B4513;
+            text-decoration: none;
+        }
+        
+        .attribution a:hover {
+            text-decoration: underline;
+        }
+        
+        .sources-section {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+        
+        .source-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-left: 4px solid #8B4513;
+        }
+        
+        .source-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .source-icon {
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .stagger-item {
+            opacity: 0;
+            animation: fadeIn 0.5s ease-in forwards;
+        }
+        
+        .stagger-item:nth-child(1) { animation-delay: 0.1s; }
+        .stagger-item:nth-child(2) { animation-delay: 0.2s; }
+        .stagger-item:nth-child(3) { animation-delay: 0.3s; }
+        .stagger-item:nth-child(4) { animation-delay: 0.4s; }
+        .stagger-item:nth-child(5) { animation-delay: 0.5s; }
+        .stagger-item:nth-child(6) { animation-delay: 0.6s; }
+        
+        .contact-email {
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px 0 rgba(31, 38, 135, 0.5);
+        }
+        
+        .volcano-bg {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #CD853F 100%);
+        }
+        
+        .hiking-icon {
+            animation: hiking 4s ease-in-out infinite;
+        }
+        
+        @keyframes hiking {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            25% { transform: translateX(10px) rotate(5deg); }
+            75% { transform: translateX(-10px) rotate(-5deg); }
+        }
+        
+        .volcano-icon {
+            animation: volcano 6s ease-in-out infinite;
+        }
+        
+        @keyframes volcano {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: #8B4513;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -13px;
+            background-color: white;
+            border: 4px solid #8B4513;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid #8B4513;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent #8B4513;
+        }
+        
+        .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid #8B4513;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent #8B4513 transparent transparent;
+        }
+        
+        .right::after {
+            left: -13px;
+        }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::before {
+                left: 60px;
+                border: medium solid #8B4513;
+                border-width: 10px 10px 10px 0;
+                border-color: transparent #8B4513 transparent transparent;
+            }
+            
+            .left::after, .right::after {
+                left: 18px;
+            }
+            
+            .right {
+                left: 0%;
+            }
+        }
+    </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+    <!-- Navbar -->
+    <nav class="mountain-bg text-white py-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold flex items-center">
+                <i class="fas fa-mountain mr-2 mountain-animation"></i>
+                Tambora Explorer
+            </a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8">
+                <a href="seemore.html" class="hover:text-amber-200 transition duration-300 font-medium">Back >></a>
+                <a href="#about" class="hover:text-amber-200 transition duration-300 font-medium">About</a>
+                <a href="#history" class="hover:text-amber-200 transition duration-300 font-medium">History</a>
+                <a href="#gallery" class="hover:text-amber-200 transition duration-300 font-medium">Gallery</a>
+                <a href="#activities" class="hover:text-amber-200 transition duration-300 font-medium">Activities</a>
+                <a href="#location" class="hover:text-amber-200 transition duration-300 font-medium">Location</a>
+                <a href="#contact" class="hover:text-amber-200 transition duration-300 font-medium">Contact</a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-amber-800">
+            <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+                <a href="seemore.html" class="hover:text-amber-200 transition duration-300">Back >></a>
+                <a href="#about" class="hover:text-amber-200 transition duration-300">About</a>
+                <a href="#history" class="hover:text-amber-200 transition duration-300">History</a>
+                <a href="#gallery" class="hover:text-amber-200 transition duration-300">Gallery</a>
+                <a href="#activities" class="hover:text-amber-200 transition duration-300">Activities</a>
+                <a href="#location" class="hover:text-amber-200 transition duration-300">Location</a>
+                <a href="#contact" class="hover:text-amber-200 transition duration-300">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Video Background -->
+    <section class="hero-section flex items-center justify-center text-white">
+        <video autoplay muted loop class="video-background">
+            <source src="TamboraImg/vidio tambora.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-overlay absolute inset-0"></div>
+        <div class="hero-content text-center px-4 z-10 fade-in">
+            <h1 class="text-3xl md:text-6xl font-bold mb-6">Mount Tambora</h1>
+            <p class="text-lg md:text-2xl mb-8 max-w-2xl mx-auto">Natural Wonder with a Powerful Eruption History in Dompu, West Nusa Tenggara</p>
+            <button id="explore-btn" class="bg-amber-700 hover:bg-amber-600 text-white px-8 py-3 rounded-full font-semibold text-lg transition duration-300 transform hover:scale-105 shadow-lg">
+                Explore Now
+            </button>
+        </div>
+        <div class="absolute bottom-10 left-0 right-0 flex justify-center">
+            <a href="#about" class="text-white animate-bounce">
+                <i class="fas fa-chevron-down text-3xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="stats-card stagger-item">
+                    <div class="text-3xl font-bold mb-2">2,850M</div>
+                    <div class="text-amber-100">Current Height</div>
+                </div>
+                <div class="stats-card stagger-item">
+                    <div class="text-3xl font-bold mb-2">1815</div>
+                    <div class="text-amber-100">Year of Major Eruption</div>
+                </div>
+                <div class="stats-card stagger-item">
+                    <div class="text-3xl font-bold mb-2">4,300M</div>
+                    <div class="text-amber-100">Height Before Eruption</div>
+                </div>
+                <div class="stats-card stagger-item">
+                    <div class="text-3xl font-bold mb-2">VEI 7</div>
+                    <div class="text-amber-100">Eruption Scale</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white parallax" style="background-image: url('https://img.merahputih.com/media/fa/99/4b/fa994ba01fcacf6a90b9bdaa63fff03d.jpg');">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-12 section-title">About Mount Tambora</h2>
+                
+                <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-8 shadow-2xl">
+                    <p class="text-lg text-white mb-6">
+                        Mount Tambora is an active volcano located on Sumbawa Island, West Nusa Tenggara. This mountain is famous for its massive eruption in 1815, which was one of the largest volcanic eruptions in recorded human history.
+                    </p>
+                    
+                    <p class="text-lg text-white mb-6">
+                        Before the 1815 eruption, Mount Tambora stood approximately 4,300 meters above sea level. After the eruption, its height drastically reduced to 2,850 meters, forming a giant caldera with a diameter of 6-7 km and a depth of 1,100-1,300 meters.
+                    </p>
+                    
+                    <p class="text-lg text-white mb-6">
+                        Today, Mount Tambora has become a popular hiking destination for adventurers. The climb to Tambora's summit offers spectacular views and an unforgettable experience, especially when witnessing sunrise from the mountain peak.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                        <div class="glass-card stagger-item">
+                            <div class="text-4xl mb-4 volcano-icon">🌋</div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">Active Volcano</h3>
+                            <p class="text-gray-600">One of Indonesia's most active volcanoes</p>
+                        </div>
+                        
+                        <div class="glass-card stagger-item">
+                            <div class="text-4xl mb-4">🏞️</div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">Giant Caldera</h3>
+                            <p class="text-gray-600">Largest caldera in Indonesia with amazing views</p>
+                        </div>
+                        
+                        <div class="glass-card stagger-item">
+                            <div class="text-4xl mb-4 hiking-icon">🥾</div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">Hiking Destination</h3>
+                            <p class="text-gray-600">Challenging hike with spectacular scenery</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section id="history" class="py-20 bg-amber-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 section-title">Tambora Eruption History</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item left stagger-item">
+                    <div class="timeline-content">
+                        <h3 class="font-bold text-lg text-amber-700">Before 1815</h3>
+                        <p>Mount Tambora stood approximately 4,300 meters high and was one of the highest peaks in Indonesia. The mountain showed no significant volcanic activity for centuries.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right stagger-item">
+                    <div class="timeline-content">
+                        <h3 class="font-bold text-lg text-amber-700">April 5, 1815</h3>
+                        <p>The first eruption was heard in Makassar (about 380 km from Tambora). The sound of the eruption was mistaken for cannon fire, so troops were sent to search for ships thought to be under attack.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left stagger-item">
+                    <div class="timeline-content">
+                        <h3 class="font-bold text-lg text-amber-700">April 10-11, 1815</h3>
+                        <p>The peak eruption occurred. Volcanic ash covered the sky up to 600 km away. The sound of the eruption was heard up to 2,600 km away. Three columns of fire erupted and merged into one. The entire mountain turned into flowing fire.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right stagger-item">
+                    <div class="timeline-content">
+                        <h3 class="font-bold text-lg text-amber-700">After the Eruption</h3>
+                        <p>The mountain's height reduced from 4,300 m to 2,850 m. A giant caldera formed with a diameter of 6-7 km. Approximately 71,000 people died, both directly and from starvation and disease.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left stagger-item">
+                    <div class="timeline-content">
+                        <h3 class="font-bold text-lg text-amber-700">Global Impact</h3>
+                        <p>The eruption caused the "Year Without a Summer" in 1816 in the northern hemisphere. Global temperatures dropped by 0.4-0.7°C. Crop failures occurred in Europe, North America, and Asia. Many regions experienced extreme weather and famine.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 bg-amber-100 p-6 rounded-lg shadow-md stagger-item">
+                <h4 class="font-bold text-lg mb-2 text-amber-800">Interesting Fact</h4>
+                <p class="text-gray-700">The 1815 Tambora eruption was the largest volcanic eruption in recorded human history, with a scale of 7 on the Volcanic Explosivity Index (VEI). Its eruption power is estimated to be four times greater than the 1883 Krakatoa eruption.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 section-title">Mount Tambora Experience</h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="video-container stagger-item">
+<iframe 
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;"
+    src="https://www.youtube.com/embed/pOQmamtVzQQ?si=PrbgeKxPQEDhI4a4" 
+    title="YouTube video player" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    allowfullscreen>
+  </iframe>
+                </div>
+                <p class="text-center text-gray-600 mt-4 stagger-item">Watch the beauty and challenges of climbing Mount Tambora through this video</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 section-title">Mount Tambora Gallery</h2>
+            
+            <!-- Image Gallery -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Image 1 -->
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md stagger-item" onclick="openModal('modal1')">
+                    <img src="TamboraImg/tambora gambar 1.jpg" 
+                         alt="Mount Tambora Peak" 
+                         class="w-full h-48 object-cover">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus text-white text-2xl"></i>
+                    </div>
+                </div>
+                
+                <!-- Image 2 -->
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md stagger-item" onclick="openModal('modal2')">
+                    <img src="TamboraImg/vecteezy.com 2.jpg" 
+                         alt="Tambora Caldera" 
+                         class="w-full h-48 object-cover">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus text-white text-2xl"></i>
+                    </div>
+                </div>
+                
+                <!-- Image 3 -->
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md stagger-item" onclick="openModal('modal3')">
+                    <img src="TamboraImg/istockphoto.comgambar3.jpg" 
+                         alt="Hiking Tambora" 
+                         class="w-full h-48 object-cover">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus text-white text-2xl"></i>
+                    </div>
+                </div>
+                
+                <!-- Image 4 -->
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md stagger-item" onclick="openModal('modal4')">
+                    <img src="TamboraImg/stock.adobe.comgambar 4.jpg" 
+                         alt="Sunrise at Tambora" 
+                         class="w-full h-48 object-cover">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus text-white text-2xl"></i>
+                    </div>
+                </div>
+                
+                <!-- Image 5 -->
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md stagger-item" onclick="openModal('modal5')">
+                    <img src="TamboraImg/gettyimages.comgambar 5.jpg" 
+                         alt="Tambora Landscape" 
+                         class="w-full h-48 object-cover">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus text-white text-2xl"></i>
+                    </div>
+                </div>
+                
+                <!-- Image 6 -->
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md stagger-item" onclick="openModal('modal6')">
+                    <img src="TamboraImg/tempo.co gambar 6.jpg" 
+                         alt="Flora at Tambora" 
+                         class="w-full h-48 object-cover">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus text-white text-2xl"></i>
+                    </div>
+                </div>
+                
+                <!-- Image 7 -->
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md stagger-item" onclick="openModal('modal7')">
+                    <img src="TamboraImg/jogja.disway.id 7.jpg" 
+                         alt="View from Tambora" 
+                         class="w-full h-48 object-cover">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus text-white text-2xl"></i>
+                    </div>
+                </div>
+                
+                <!-- Image 8 -->
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md stagger-item" onclick="openModal('modal8')">
+                    <img src="TamboraImg/tempo.co 8.jpg" 
+                         alt="Tambora Natural Beauty" 
+                         class="w-full h-48 object-cover">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus text-white text-2xl"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Attribution Section -->
+            <div class="mt-12 sources-section p-8 stagger-item">
+                <h3 class="text-2xl font-bold text-center text-gray-800 mb-8 section-title">Media Sources</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-bold text-xl text-amber-700 mb-6 text-center md:text-left flex items-center justify-center md:justify-start">
+                            <div class="source-icon mr-3">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            Photos
+                        </h4>
+                        <div class="space-y-4">
+                            <div class="source-card">
+                                <h5 class="font-bold text-lg text-gray-800 mb-1">vecteezy.com</h5>
+                            </div>
+                            <div class="source-card">
+                                <h5 class="font-bold text-lg text-gray-800 mb-1">istockphoto.com</h5>
+                            </div>
+                            <div class="source-card">
+                                <h5 class="font-bold text-lg text-gray-800 mb-1">gettyimages.com</h5>
+                            </div>
+                            <div class="source-card">
+                                <h5 class="font-bold text-lg text-gray-800 mb-1">tempo.com</h5>
+                            </div>
+                            <div class="source-card">
+                                <h5 class="font-bold text-lg text-gray-800 mb-1">jogja.disway.id</h5>
+                            </div>
+                            <div class="source-card">
+                                <h5 class="font-bold text-lg text-gray-800 mb-1">stock.adobe.com</h5>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-xl text-amber-700 mb-6 text-center md:text-left flex items-center justify-center md:justify-start">
+                            <div class="source-icon mr-3">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            Videos
+                        </h4>
+                        <div class="space-y-4">
+                            <div class="source-card">
+                                <h5 class="font-bold text-lg text-gray-800 mb-1">YouTube :  Anak Pedalaman</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 text-center">
+                    <p class="text-gray-600 italic">All media used with permission or in accordance with applicable license terms.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activities Section -->
+    <section id="activities" class="py-20 bg-amber-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 section-title">Activities</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-amber-50 rounded-xl p-6 text-center card-hover stagger-item">
+                    <i class="fas fa-hiking text-4xl text-amber-600 mb-4 hiking-icon"></i>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Hiking</h3>
+                    <p class="text-gray-600">Explore challenging hiking trails to Tambora's peak</p>
+                </div>
+                
+                <div class="bg-amber-50 rounded-xl p-6 text-center card-hover stagger-item">
+                    <i class="fas fa-camera text-4xl text-amber-600 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Photography</h3>
+                    <p class="text-gray-600">Capture natural beauty and spectacular views</p>
+                </div>
+                
+                <div class="bg-amber-50 rounded-xl p-6 text-center card-hover stagger-item">
+                    <i class="fas fa-campground text-4xl text-amber-600 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Camping</h3>
+                    <p class="text-gray-600">Enjoy camping experiences in the great outdoors</p>
+                </div>
+                
+                <div class="bg-amber-50 rounded-xl p-6 text-center card-hover stagger-item">
+                    <i class="fas fa-binoculars text-4xl text-amber-600 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Wildlife Observation</h3>
+                    <p class="text-gray-600">Observe biodiversity around the mountain</p>
+                </div>
+                
+                <div class="bg-amber-50 rounded-xl p-6 text-center card-hover stagger-item">
+                    <i class="fas fa-mountain text-4xl text-amber-600 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Caldera Exploration</h3>
+                    <p class="text-gray-600">Explore the giant caldera after the 1815 eruption</p>
+                </div>
+                
+                <div class="bg-amber-50 rounded-xl p-6 text-center card-hover stagger-item">
+                    <i class="fas fa-sun text-4xl text-amber-600 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Sunrise/Sunset</h3>
+                    <p class="text-gray-600">Witness stunning sunrise and sunset moments</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section with Google Maps -->
+    <section id="location" class="py-20 bg-amber-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 section-title">Mount Tambora Location</h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="map-container stagger-item">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27927.767933963536!2d117.97050132047214!3d-8.247881452151796!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dca2ce36910d79b%3A0x939651610d8ff4ba!2sGn.%20Tambora!5e1!3m2!1sid!2sid!4v1767083169952!5m2!1sid!2sid"
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4 text-center md:text-left">How to Get There</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="flex items-start stagger-item">
+                                <i class="fas fa-plane text-amber-600 mt-1 mr-3"></i>
+                                <span>Fly to Sultan Muhammad Kaharuddin III Airport (SWQ) in Sumbawa Besar</span>
+                            </li>
+                            <li class="flex items-start stagger-item">
+                                <i class="fas fa-car text-amber-600 mt-1 mr-3"></i>
+                                <span>Land travel from airport to Dompu (about 3-4 hours)</span>
+                            </li>
+                            <li class="flex items-start stagger-item">
+                                <i class="fas fa-taxi text-amber-600 mt-1 mr-3"></i>
+                                <span>From Dompu to Pancasila Village (hiking basecamp, about 2 hours)</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4 text-center md:text-left">Location Details</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="flex items-start stagger-item">
+                                <i class="fas fa-map-marker-alt text-amber-600 mt-1 mr-3"></i>
+                                <span>Sumbawa Island, Dompu & Bima Regencies, West Nusa Tenggara</span>
+                            </li>
+                            <li class="flex items-start stagger-item">
+                                <i class="fas fa-clock text-amber-600 mt-1 mr-3"></i>
+                                <span>Open for hiking with official permits</span>
+                            </li>
+                            <li class="flex items-start stagger-item">
+                                <i class="fas fa-mountain text-amber-600 mt-1 mr-3"></i>
+                                <span>Height: 2,850 masl, Caldera: 6-7 km diameter</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mountain-bg text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-lg">© 2025 Tambora Explorer | Made with ❤️ in Dompu</p>
+            <div class="mt-4 flex justify-center space-x-4">
+                <a href="#" class="text-white hover:text-amber-200 transition duration-300">
+                    <i class="fab fa-facebook text-xl"></i>
+                </a>
+                <a href="#" class="text-white hover:text-amber-200 transition duration-300">
+                    <i class="fab fa-instagram text-xl"></i>
+                </a>
+                <a href="#" class="text-white hover:text-amber-200 transition duration-300">
+                    <i class="fab fa-twitter text-xl"></i>
+                </a>
+                <a href="#" class="text-white hover:text-amber-200 transition duration-300">
+                    <i class="fab fa-youtube text-xl"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Image Modals -->
+    <div id="modal1" class="modal">
+        <span class="close" onclick="closeModal('modal1')">&times;</span>
+        <img class="modal-content" id="img01" src="TamboraImg/tambora gambar 1.jpg">
+    </div>
+
+    <div id="modal2" class="modal">
+        <span class="close" onclick="closeModal('modal2')">&times;</span>
+        <img class="modal-content" id="img02" src="TamboraImg/vecteezy.com 2.jpg">
+    </div>
+
+    <div id="modal3" class="modal">
+        <span class="close" onclick="closeModal('modal3')">&times;</span>
+        <img class="modal-content" id="img03" src="TamboraImg/istockphoto.comgambar3.jpg">
+    </div>
+
+    <div id="modal4" class="modal">
+        <span class="close" onclick="closeModal('modal4')">&times;</span>
+        <img class="modal-content" id="img04" src="TamboraImg/stock.adobe.comgambar 4.jpg">
+    </div>
+
+    <div id="modal5" class="modal">
+        <span class="close" onclick="closeModal('modal5')">&times;</span>
+        <img class="modal-content" id="img05" src="TamboraImg/gettyimages.comgambar 5.jpg">
+    </div>
+
+    <div id="modal6" class="modal">
+        <span class="close" onclick="closeModal('modal6')">&times;</span>
+        <img class="modal-content" id="img06" src="TamboraImg/tempo.co gambar 6.jpg">
+    </div>
+
+    <div id="modal7" class="modal">
+        <span class="close" onclick="closeModal('modal7')">&times;</span>
+        <img class="modal-content" id="img07" src="TamboraImg/jogja.disway.id 7.jpg">
+    </div>
+
+    <div id="modal8" class="modal">
+        <span class="close" onclick="closeModal('modal8')">&times;</span>
+        <img class="modal-content" id="img08" src="TamboraImg/tempo.co 8.jpg">
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('open');
+        });
+
+        // Smooth scroll to About section
+        document.getElementById('explore-btn').addEventListener('click', function() {
+            document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+            
+            // Add a little animation effect
+            this.classList.add('scale-95');
+            setTimeout(() => {
+                this.classList.remove('scale-95');
+            }, 300);
+        });
+
+        // Function to open image modal
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+        }
+
+        // Function to close image modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+
+        // Close modal when clicking outside the image
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName('modal');
+            for (let i = 0; i < modals.length; i++) {
+                if (event.target == modals[i]) {
+                    modals[i].style.display = "none";
+                }
+            }
+        }
+        
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize elements with stagger-item class
+            const staggerItems = document.querySelectorAll('.stagger-item');
+            
+            // Create Intersection Observer for scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Apply observer to all elements with stagger-item class
+            staggerItems.forEach(item => {
+                observer.observe(item);
+            });
+        });
+    </script>
+</body>
+</html>

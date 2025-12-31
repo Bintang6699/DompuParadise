@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacoajara Horse Racing – Traditional Festival in Dompu, NTB</title>
+    <meta name="description" content="Experience Pacoajara, the thrilling traditional horse racing festival in Dompu, West Nusa Tenggara. Held at Lepadi Field, this cultural event blends speed, tradition, and local pride.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            scroll-behavior: smooth;
+        }
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .hero-overlay {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        .gallery-item {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            overflow: auto;
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            margin-top: 2%;
+            border-radius: 8px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.8);
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+            transition: color 0.3s ease;
+        }
+        .close:hover {
+            color: #fbbf24;
+        }
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 3rem;
+            text-align: center;
+            width: 100%;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #8B4513, #A0522D);
+            border-radius: 2px;
+        }
+        .stats-card {
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.2);
+        }
+        .stats-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(139, 69, 19, 0.4);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px 0 rgba(31, 38, 135, 0.25);
+        }
+        .map-container {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            height: 400px;
+        }
+        .fade-in {
+            animation: fadeIn 1.2s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .stagger-item:nth-child(1) { animation-delay: 0.1s; }
+        .stagger-item:nth-child(2) { animation-delay: 0.2s; }
+        .stagger-item:nth-child(3) { animation-delay: 0.3s; }
+        .stagger-item:nth-child(4) { animation-delay: 0.4s; }
+        .stagger-item:nth-child(5) { animation-delay: 0.5s; }
+        .stagger-item:nth-child(6) { animation-delay: 0.6s; }
+        .mountain-bg {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+        }
+        .horse-icon {
+            animation: gallop 3s ease-in-out infinite;
+        }
+        @keyframes gallop {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(2deg); }
+        }
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #8B4513, #A0522D);
+            z-index: 9999;
+            transition: width 0.3s ease;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.4);
+        }
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(139, 69, 19, 0.6);
+        }
+        .floating-video {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        .floating-video:hover {
+            transform: translateY(-10px);
+        }
+        .interactive-card {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .interactive-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.7) 100%);
+            z-index: 1;
+            transition: opacity 0.3s ease;
+        }
+        .interactive-card:hover::before {
+            opacity: 0.8;
+        }
+        .interactive-card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            z-index: 2;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            color: white;
+        }
+        .interactive-card:hover .interactive-card-content {
+            transform: translateY(0);
+        }
+        .testimonial-slider {
+            position: relative;
+            overflow: hidden;
+        }
+        .testimonial-slide {
+            min-width: 100%;
+            transition: transform 0.5s ease;
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        @media (max-width: 768px) {
+            .hero-section {
+                height: 80vh;
+            }
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+            .mobile-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #A0522D;
+                z-index: 100;
+            }
+        }
+        .sources-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .source-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+        .source-card:hover {
+            transform: translateX(10px);
+        }
+        .source-icon {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+    <!-- Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <!-- WhatsApp Float REMOVED -->
+
+    <!-- Navbar -->
+    <nav class="mountain-bg text-white py-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold flex items-center">
+                <i class="fas fa-horse mr-2 horse-icon"></i>
+                Dompu Races
+            </a>
+            <div class="hidden md:flex space-x-6">
+                <a href="seemore.html" class="hover:text-amber-200 transition duration-300 font-medium">Back >></a>
+                <a href="#about" class="hover:text-amber-200 transition duration-300 font-medium">About</a>
+                <a href="#history" class="hover:text-amber-200 transition duration-300 font-medium">History</a>
+                <a href="#gallery" class="hover:text-amber-200 transition duration-300 font-medium">Gallery</a>
+                <a href="#activities" class="hover:text-amber-200 transition duration-300 font-medium">Experience</a>
+                <a href="#location" class="hover:text-amber-200 transition duration-300 font-medium">Location</a>
+                <a href="#testimonials" class="hover:text-amber-200 transition duration-300 font-medium">Testimonials</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-amber-800">
+            <div class="container mx-auto px-4 py-4 flex flex-col space-y-3">
+                <a href="seemore.html" class="hover:text-amber-200 transition duration-300 font-medium">Back >></a>
+                <a href="#about" class="hover:text-amber-200 transition duration-300 py-2">About</a>
+                <a href="#history" class="hover:text-amber-200 transition duration-300 py-2">History</a>
+                <a href="#gallery" class="hover:text-amber-200 transition duration-300 py-2">Gallery</a>
+                <a href="#activities" class="hover:text-amber-200 transition duration-300 py-2">Experience</a>
+                <a href="#location" class="hover:text-amber-200 transition duration-300 py-2">Location</a>
+                <a href="#testimonials" class="hover:text-amber-200 transition duration-300 py-2">Testimonials</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section flex items-center justify-center text-white">
+        <img src="pacuankuda/gambar 4.jpg" alt="Lepadi Field - Pacoajara" class="hero-bg">
+        <div class="hero-overlay absolute inset-0"></div>
+        <div class="hero-content text-center px-4 z-10 fade-in">
+            <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold mb-6">Pacoajara Horse Racing</h1>
+            <p class="text-lg md:text-xl lg:text-2xl mb-8 max-w-2xl mx-auto">The Thrilling Traditional Festival of Dompu, West Nusa Tenggara</p>
+            <button id="explore-btn" class="bg-amber-700 hover:bg-amber-600 text-white px-8 py-3 rounded-full font-semibold text-lg transition duration-300 transform hover:scale-105 shadow-lg pulse-animation">
+                Discover the Race
+            </button>
+        </div>
+        <div class="absolute bottom-10 left-0 right-0 flex justify-center">
+            <a href="#about" class="text-white animate-bounce">
+                <i class="fas fa-chevron-down text-3xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="stats-card stagger-item">
+                    <div class="text-3xl font-bold mb-2">Lepadi</div>
+                    <div class="text-amber-100">Race Venue</div>
+                </div>
+                <div class="stats-card stagger-item">
+                    <div class="text-3xl font-bold mb-2">Pajo</div>
+                    <div class="text-amber-100">Subdistrict</div>
+                </div>
+                <div class="stats-card stagger-item">
+                    <div class="text-3xl font-bold mb-2">Dompu</div>
+                    <div class="text-amber-100">Regency</div>
+                </div>
+                <div class="stats-card stagger-item">
+                    <div class="text-3xl font-bold mb-2">Annual</div>
+                    <div class="text-amber-100">Event</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-amber-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 section-title">About Pacoajara</h2>
+            <div class="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-lg">
+                <p class="text-lg text-gray-700 mb-6">
+                    Pacoajara is a traditional horse racing festival held annually in Dompu Regency, West Nusa Tenggara, Indonesia. Unlike modern horse racing, Pacoajara features young jockeys—often children aged 7 to 12—who ride bareback at high speeds across a 2.5 km sandy track.
+                </p>
+                <p class="text-lg text-gray-700 mb-6">
+                    The event is not just a sport but a deep-rooted cultural expression of the local Dompu communities. It symbolizes courage, tradition, and communal pride. The races are usually held during local festivals or national holidays, drawing thousands of spectators from across Indonesia and beyond.
+                </p>
+                <p class="text-lg text-gray-700 mb-6">
+                    The main venue is <strong>Lepadi Field</strong> in Pajo Subdistrict—a flat, open plain perfectly suited for this high-adrenaline spectacle.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                    <div class="glass-card stagger-item">
+                        <div class="text-4xl mb-4">🐎</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Bareback Racing</h3>
+                        <p class="text-gray-600">No saddles, no reins—pure skill and bravery</p>
+                    </div>
+                    <div class="glass-card stagger-item">
+                        <div class="text-4xl mb-4">🥁</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Cultural Festival</h3>
+                        <p class="text-gray-600">Accompanied by music, food, and local art</p>
+                    </div>
+                    <div class="glass-card stagger-item">
+                        <div class="text-4xl mb-4 horse-icon">🏇</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Youth Jockeys</h3>
+                        <p class="text-gray-600">Children as young as 7 lead the race</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 section-title">Experience the Race</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="floating-video stagger-item">
+                    <div class="relative h-0 pb-[56.25%]">
+                        <img class="absolute top-0 left-0 w-full h-full"  src="pacuankuda/gambar2.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section id="history" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 section-title">History & Tradition</h2>
+            <div class="max-w-4xl mx-auto text-gray-700 space-y-4">
+                <p class="text-lg">Pacoajara dates back over a century. Originally, it was held to train horses for agricultural and transportation use. Over time, it evolved into a competitive and celebratory event.</p>
+                <p class="text-lg">The name "Pacoajara" comes from the local Dompu language—<em>"Paco"</em> meaning "race" and <em>"Ajara"</em> referring to spirited, energetic horses.</p>
+                <p class="text-lg">Today, Pacoajara is recognized by the Indonesian government as part of the National Intangible Cultural Heritage. It plays a vital role in preserving local identity and attracting cultural tourism to Dompu.</p>
+                <div class="mt-6 p-5 bg-amber-100 rounded-lg stagger-item">
+                    <h4 class="font-bold text-lg text-amber-800">Did You Know?</h4>
+                    <p class="text-gray-700">Some horses in Pacoajara can reach speeds up to 60 km/h! Spectators often line both sides of the track, cheering loudly as riders sprint toward victory.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-amber-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 section-title">Pacoajara Gallery</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md stagger-item" onclick="openModal('g1')">
+                    <img src="pacuankuda/gambar1.jpg" alt="Horse Race Start" class="w-full h-48 object-cover">
+                    <div class="gallery-overlay"><i class="fas fa-search-plus text-white text-2xl"></i></div>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md stagger-item" onclick="openModal('g2')">
+                    <img src="pacuankuda/gambar2.jpg" alt="Lepadi Field" class="w-full h-48 object-cover">
+                    <div class="gallery-overlay"><i class="fas fa-search-plus text-white text-2xl"></i></div>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md stagger-item" onclick="openModal('g3')">
+                    <img src="pacuankuda/gambar ke 3.jpeg" alt="Young Jockeys" class="w-full h-48 object-cover">
+                    <div class="gallery-overlay"><i class="fas fa-search-plus text-white text-2xl"></i></div>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md stagger-item" onclick="openModal('g4')">
+                    <img src="pacuankuda/gambar 4.jpg" alt="Spectators" class="w-full h-48 object-cover">
+                    <div class="gallery-overlay"><i class="fas fa-search-plus text-white text-2xl"></i></div>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md stagger-item" onclick="openModal('g5')">
+                    <img src="pacuankuda/gambar5.webp" alt="Finish Line" class="w-full h-48 object-cover">
+                    <div class="gallery-overlay"><i class="fas fa-search-plus text-white text-2xl"></i></div>
+                </div>
+                <div class="gallery-item rounded-lg overflow-hidden shadow-md stagger-item" onclick="openModal('g6')">
+                    <img src="pacuankuda/gambar ke 6.webp" alt="Cultural Booths" class="w-full h-48 object-cover">
+                    <div class="gallery-overlay"><i class="fas fa-search-plus text-white text-2xl"></i></div>
+                </div>
+            </div>
+            <div class="mt-12 text-center stagger-item">
+                <button id="loadMoreBtn" class="bg-amber-700 hover:bg-amber-600 text-white px-6 py-3 rounded-full font-semibold transition duration-300 transform hover:scale-105 shadow-md">
+                    <i class="fas fa-images mr-2"></i>Load More Photos
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 section-title">Visitor Experiences</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-md stagger-item">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-amber-600 flex items-center justify-center text-white font-bold text-xl mr-4">A</div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Ahmad Sulaiman</h4>
+                                <p class="text-gray-600 text-sm">Tourist from Jakarta</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 italic">"Pengalaman yang luar biasa! Suasana balapannya sangat meriah, dan keberanian anak-anak joki membuat saya terkesan. Pasti akan kembali tahun depan!"</p>
+                        <div class="mt-3 text-amber-500">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-md stagger-item">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-amber-600 flex items-center justify-center text-white font-bold text-xl mr-4">S</div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Sarah Johnson</h4>
+                                <p class="text-gray-600 text-sm">Travel Blogger</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 italic">"An unforgettable cultural experience! The energy, the traditions, and the hospitality of the Dompu people made this one of my best trips in Indonesia."</p>
+                        <div class="mt-3 text-amber-500">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience/Activities Section -->
+    <section id="activities" class="py-20 bg-amber-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 section-title">What to Experience</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl p-6 text-center card-hover stagger-item">
+                    <i class="fas fa-running text-4xl text-amber-600 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Watch the Race</h3>
+                    <p class="text-gray-600">Feel the thunder of hooves as horses sprint across Lepadi Field</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 text-center card-hover stagger-item">
+                    <i class="fas fa-utensils text-4xl text-amber-600 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Local Cuisine</h3>
+                    <p class="text-gray-600">Try Dompu specialties like <em>Mie Tiban</em> and <em>Sate Rembiga</em></p>
+                </div>
+                <div class="bg-white rounded-xl p-6 text-center card-hover stagger-item">
+                    <i class="fas fa-drum text-4xl text-amber-600 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Cultural Performances</h3>
+                    <p class="text-gray-600">Traditional music, dance, and local art exhibitions</p>
+                </div>
+            </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Attribution Section -->
+<section class="py-12 bg-gray-100">
+    <div class="container mx-auto px-4">
+        <div class="sources-section p-8 stagger-item">
+            <h3 class="text-2xl font-bold text-center text-gray-800 mb-8 section-title">Media Sources</h3>
+            
+            <div class="flex flex-col items-center justify-center">
+                <!-- Container utama untuk semua konten -->
+                <div class="w-full max-w-lg mx-auto">
+                    <!-- Header Photos dengan ikon -->
+                    <div class="flex items-center justify-center mb-6">
+                        <div class="source-icon mr-3">
+                            <i class="fas fa-camera text-amber-700 text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-xl text-amber-700">Photos</h4>
+                    </div>
+                    
+                    <!-- Daftar sumber photos -->
+                    <div class="space-y-3">
+                        <div class="source-card text-center py-3">
+                            <h5 class="font-bold text-lg text-gray-800">blue.kumparan.com</h5>
+                        </div>
+                        <div class="source-card text-center py-3">
+                            <h5 class="font-bold text-lg text-gray-800">awsimages.detik.net.id</h5>
+                        </div>
+                        <div class="source-card text-center py-3">
+                            <h5 class="font-bold text-lg text-gray-800">assetd.kompas.id</h5>
+                        </div>
+                        <div class="source-card text-center py-3">
+                            <h5 class="font-bold text-lg text-gray-800">detik.com</h5>
+                        </div>
+                        <div class="source-card text-center py-3">
+                            <h5 class="font-bold text-lg text-gray-800">traverse.id</h5>
+                        </div>
+                    </div>
+                    
+                    <!-- Footer text -->
+                    <div class="mt-8 pt-6 border-t border-gray-300">
+                        <p class="text-gray-600 italic text-center">All media used with permission or in accordance with applicable license terms.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Location Section -->
+    <section id="location" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 section-title">Race Location</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="map-container stagger-item">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3488.0414295953296!2d118.48389427444626!3d-8.573210986983925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dca7aad353c95e9%3A0x6b64000fbe746087!2sArena%20Pacuan%20Kuda%20Dompu!5e1!3m2!1sid!2sid!4v1765322826304!5m2!1sid!2sid" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">How to Get There</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="flex items-start stagger-item">
+                                <i class="fas fa-plane text-amber-600 mt-1 mr-3"></i>
+                                <span>Fly to Sultan Muhammad Kaharuddin III Airport (SWQ), Sumbawa</span>
+                            </li>
+                            <li class="flex items-start stagger-item">
+                                <i class="fas fa-bus text-amber-600 mt-1 mr-3"></i>
+                                <span>Take a bus or car to Dompu (3–4 hours)</span>
+                            </li>
+                            <li class="flex items-start stagger-item">
+                                <i class="fas fa-motorcycle text-amber-600 mt-1 mr-3"></i>
+                                <span>From Dompu town, head to Pajo Subdistrict (30 min) to reach Lepadi Field</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Event Details</h3>
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="flex items-start stagger-item">
+                                <i class="fas fa-map-marker-alt text-amber-600 mt-1 mr-3"></i>
+                                <span>Lepadi Field, Pajo, Dompu Regency, NTB</span>
+                            </li>
+                            <li class="flex items-start stagger-item">
+                                <i class="fas fa-calendar text-amber-600 mt-1 mr-3"></i>
+                                <span>Usually held annually (dates vary; check local announcements)</span>
+                            </li>
+                            <li class="flex items-start stagger-item">
+                                <i class="fas fa-info-circle text-amber-600 mt-1 mr-3"></i>
+                                <span>Free entry for spectators; VIP seating available</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mountain-bg text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Dompu Races</h3>
+                    <p class="text-amber-100">Celebrating Culture & Tradition in West Nusa Tenggara</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#about" class="hover:text-amber-200 transition duration-300">About</a></li>
+                        <li><a href="#gallery" class="hover:text-amber-200 transition duration-300">Gallery</a></li>
+                        <li><a href="#location" class="hover:text-amber-200 transition duration-300">Location</a></li>
+                        <li><a href="#testimonials" class="hover:text-amber-200 transition duration-300">Testimonials</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Connect With Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/share/1ADCJAJ4Aw/" class="text-white hover:text-amber-200 transition duration-300">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/dompu_paradise?igsh=MWtlbTNvcWE4ZGh4bQ==" class="text-white hover:text-amber-200 transition duration-300">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-white hover:text-amber-200 transition duration-300">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-white hover:text-amber-200 transition duration-300">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t border-amber-700 text-center">
+                <p>© 2025 DompuPacoajara | All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Image Modals -->
+    <div id="g1" class="modal"><span class="close" onclick="closeModal('g1')">&times;</span><img class="modal-content" src="pacuankuda/gambar1.jpg"></div>
+    <div id="g2" class="modal"><span class="close" onclick="closeModal('g2')">&times;</span><img class="modal-content" src="pacuankuda/gambar2.jpg"></div>
+    <div id="g3" class="modal"><span class="close" onclick="closeModal('g3')">&times;</span><img class="modal-content" src="pacuankuda/gambar ke 3.jpeg"></div>
+    <div id="g4" class="modal"><span class="close" onclick="closeModal('g4')">&times;</span><img class="modal-content" src="pacuankuda/gambar 4.jpg"></div>
+    <div id="g5" class="modal"><span class="close" onclick="closeModal('g5')">&times;</span><img class="modal-content" src="pacuankuda/gambar5.webp"></div>
+    <div id="g6" class="modal"><span class="close" onclick="closeModal('g6')">&times;</span><img class="modal-content" src="pacuankuda/gambar ke 6.webp"></div>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('open');
+        });
+
+        // Explore Button
+        document.getElementById('explore-btn').addEventListener('click', () => {
+            document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Modal Functions
+        function openModal(id) { 
+            document.getElementById(id).style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+        
+        function closeModal(id) { 
+            document.getElementById(id).style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        // Close modal when clicking outside
+        window.onclick = (e) => {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (e.target === modal) {
+                    modal.style.display = "none";
+                    document.body.style.overflow = "auto";
+                }
+            });
+        };
+
+        // Intersection Observer for animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const items = document.querySelectorAll('.stagger-item');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            items.forEach(item => observer.observe(item));
+        });
+
+        // Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("scrollProgress").style.width = scrolled + "%";
+            
+            // Show/hide back to top button
+            const backToTop = document.getElementById("backToTop");
+            if (window.scrollY > 300) {
+                backToTop.classList.add("show");
+            } else {
+                backToTop.classList.remove("show");
+            }
+        });
+
+        // Back to Top
+        document.getElementById("backToTop").addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+
+        // Load More Photos Button
+        document.getElementById("loadMoreBtn")?.addEventListener("click", function() {
+            this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Loading...';
+            setTimeout(() => {
+                this.innerHTML = '<i class="fas fa-check mr-2"></i>More Photos Coming Soon!';
+                this.disabled = true;
+                this.classList.remove('bg-amber-700', 'hover:bg-amber-600');
+                this.classList.add('bg-green-600');
+            }, 1500);
+        });
+
+        // Interactive Cards
+        function showActivityInfo(activity) {
+            const messages = {
+                'horse-riding': 'Horse riding trials are available for visitors with guidance from experienced local trainers. Safety equipment is provided.',
+                'cultural-workshop': 'Join our cultural workshops to learn traditional Dompu weaving, pottery, and music from local artisans.'
+            };
+            
+            alert(messages[activity] || 'More information about this activity will be available soon!');
+        }
+
+        // Smooth scrolling for all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.getElementById('mobile-menu').classList.remove('open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

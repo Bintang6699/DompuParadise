@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics & Reviews - DompuParadise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: #16a34a;
+            transition: width 1s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 w-full z-50 py-1 bg-white shadow-sm">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="#" class="flex items-center">
+                <img class="fas fa-mountain text-yellow-500 mr-2" src="logo.png" width="180px">
+            </a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-gray-800 hover:text-green-600 transition duration-300 font-medium">Home</a>
+                <a href="about.html" class="text-gray-800 hover:text-green-600 transition duration-300 font-medium">About</a>
+                <a href="statistik.html" class="text-green-600 hover:text-green-600 transition duration-300 font-medium">Web Statistik</a>
+                <a href="seemore.html" class="text-gray-800 hover:text-green-600 transition duration-300 font-medium">Destinations</a>
+                <a href="event.html" class="text-gray-800 hover:text-green-600 transition duration-300 font-medium">New Events</a>
+                <a href="contact.html" class="text-gray-800 hover:text-green-600 transition duration-300 font-medium">Contact</a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-800 focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden bg-white shadow-lg hidden">
+            <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+                <a href="index.html" class="text-gray-800 hover:text-green-600 transition duration-300 font-medium">Home</a>
+                <a href="about.html" class="text-gray-800 hover:text-green-600 transition duration-300 font-medium">About</a>
+                <a href="statistik.html" class="text-green-600 hover:text-green-600 transition duration-300 font-medium">Web Statistik</a>
+                <a href="seemore.html" class="text-gray-800 hover:text-green-600 transition duration-300 font-medium">Destinations</a>
+                <a href="event.html" class="text-gray-800 hover:text-green-600 transition duration-300 font-medium">New Events</a>
+                <a href="contact.html" class="text-gray-800 hover:text-green-600 transition duration-300 font-medium">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Statistics Page -->
+    <div id="statistics" class="pt-24">
+        <!-- Hero Section -->
+        <section class="py-16 md:py-24 bg-gradient-to-r from-green-600 to-green-700 text-white">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4 fade-in">Website Statistics & Reviews</h1>
+                <p class="text-xl md:text-2xl max-w-3xl mx-auto fade-in">Real-time data and feedback from our valued visitors</p>
+            </div>
+        </section>
+
+        <!-- Live Statistics Section -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16 fade-in">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Live Website Statistics</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Real-time data showing visitor engagement and activity on our platform</p>
+                </div>
+                
+                <div class="flex justify-center">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 max-w-4xl">
+                        <!-- Total Visitors Card -->
+                        <div class="bg-gradient-to-br from-green-600 to-green-700 text-white rounded-2xl p-8 text-center shadow-xl fade-in card-hover">
+                            <div class="text-4xl mb-4">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-2">Total Visitors</h3>
+                            <div class="text-5xl font-bold mb-2" id="totalVisitors">0</div>
+                            <p class="mt-2">Since website launch</p>
+                        </div>
+                        
+                        <!-- Today's Visitors Card -->
+                        <div class="bg-gradient-to-br from-green-600 to-green-700 text-white rounded-2xl p-8 text-center shadow-xl fade-in card-hover">
+                            <div class="text-4xl mb-4">
+                                <i class="fas fa-calendar-day"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-2">Weekly Visitors</h3>
+                            <div class="text-5xl font-bold mb-2" id="todayVisitors">0</div>
+                            <p class="mt-2">Unique visitors today</p>
+                        </div>
+                        
+                        <!-- Page Views Card -->
+                        <div class="bg-gradient-to-br from-green-600 to-green-700 text-white rounded-2xl p-8 text-center shadow-xl fade-in card-hover">
+                            <div class="text-4xl mb-4">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-2">Page Views</h3>
+                            <div class="text-5xl font-bold mb-2" id="pageViews">150</div>
+                            <p class="mt-2">Total pages viewed</p>
+                        </div>
+                    </div>
+                </div>
+        </section>
+
+        <!-- Website Rating Section -->
+        <section class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16 fade-in">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Website Rating & Reviews</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">What our visitors think about DompuWisata website</p>
+                </div>
+                
+                <!-- Overall Rating -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto mb-12 fade-in">
+                    <div class="text-center">
+                        <div class="text-5xl font-bold text-green-600 mb-2">4.8</div>
+                        <div class="text-yellow-400 text-2xl mb-4">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p class="text-gray-600">Based on 1,247 reviews</p>
+                    </div>
+                </div>
+                
+                <!-- Visitor Reviews -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Review 1 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg card-hover fade-in">
+                        <div class="flex items-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Smith" class="w-12 h-12 rounded-full object-cover mr-4">
+                            <div>
+                                <h4 class="font-bold text-gray-800">John Smith</h4>
+                                <div class="text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-600">"Amazing website! The information about Dompu is comprehensive and very helpful for planning my trip. The photos are stunning!"</p>
+                        <div class="mt-4 text-sm text-gray-500">Posted 2 days ago</div>
+                    </div>
+                    
+                    <!-- Review 2 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg card-hover fade-in">
+                        <div class="flex items-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Maria Johnson" class="w-12 h-12 rounded-full object-cover mr-4">
+                            <div>
+                                <h4 class="font-bold text-gray-800">Maria Johnson</h4>
+                                <div class="text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-600">"Very informative and well-designed. I especially appreciate the detailed information about local culture and traditions."</p>
+                        <div class="mt-4 text-sm text-gray-500">Posted 1 week ago</div>
+                    </div>
+                    
+                    <!-- Review 3 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg card-hover fade-in">
+                        <div class="flex items-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="David Brown" class="w-12 h-12 rounded-full object-cover mr-4">
+                            <div>
+                                <h4 class="font-bold text-gray-800">David Brown</h4>
+                                <div class="text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-600">"As a travel blogger, I find this website extremely useful. The statistics and detailed destination info are exactly what I need."</p>
+                        <div class="mt-4 text-sm text-gray-500">Posted 3 weeks ago</div>
+                    </div>
+
+                    <!-- Review 4 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg card-hover fade-in">
+                        <div class="flex items-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Sarah Wilson" class="w-12 h-12 rounded-full object-cover mr-4">
+                            <div>
+                                <h4 class="font-bold text-gray-800">Sarah Wilson</h4>
+                                <div class="text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-600">"DompuWisata helped me plan the perfect surfing trip to Lakey Beach! The information was accurate and up-to-date."</p>
+                        <div class="mt-4 text-sm text-gray-500">Posted 1 month ago</div>
+                    </div>
+
+                    <!-- Review 5 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg card-hover fade-in">
+                        <div class="flex items-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Thomas Müller" class="w-12 h-12 rounded-full object-cover mr-4">
+                            <div>
+                                <h4 class="font-bold text-gray-800">Thomas Müller</h4>
+                                <div class="text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-600">"The cultural information on this website made my Dompu experience much richer! Highly recommended for cultural travelers."</p>
+                        <div class="mt-4 text-sm text-gray-500">Posted 2 months ago</div>
+                    </div>
+
+                    <!-- Review 6 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-lg card-hover fade-in">
+                        <div class="flex items-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/women/26.jpg" alt="Jessica Parker" class="w-12 h-12 rounded-full object-cover mr-4">
+                            <div>
+                                <h4 class="font-bold text-gray-800">Jessica Parker</h4>
+                                <div class="text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-600">"I found all the hiking information I needed for Mount Tambora on this website. The trail details were spot on!"</p>
+                        <div class="mt-4 text-sm text-gray-500">Posted 3 months ago</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add Your Review Section -->
+        <section class="py-16 bg-green-700 text-white">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 fade-in">Share Your Experience</h2>
+                <p class="text-xl max-w-2xl mx-auto mb-8 fade-in">Help us improve by sharing your feedback about DompuWisata website</p>
+                <button class="bg-white text-green-700 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition duration-300 fade-in">
+                    <i class="fas fa-comment-alt mr-2"></i><a href="contact.html">Your Review</a> 
+                </button>
+            </div>
+        </section>
+
+        <!-- Footer -->
+<footer class="bg-gray-800 text-white py-12 border-t border-gray-700">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <!-- Company Info -->
+            <div class="md:col-span-1">
+                <img id="logo" class="mb-4 filter brightness-0 invert" src="logo.png" width="200px" alt="DompuWisata Logo">
+                <p class="text-gray-400 mb-4 text-sm leading-relaxed">
+                    Your trusted guide to exploring the natural beauty and cultural richness of Dompu, West Nusa Tenggara.
+                </p>
+                <div class="flex space-x-3">
+                    <a href="https://www.facebook.com/share/15x2c8HyeV/" class="w-9 h-9 bg-gray-700 rounded-full flex items-center justify-center hover:bg-green-600 transition duration-300 transform hover:scale-110">
+                        <i class="fab fa-facebook-f text-sm"></i>
+                    </a>
+                    <a href="https://www.instagram.com/dompu_paradise?igsh=MWtlbTNvcWE4ZGh4bQ==" class="w-9 h-9 bg-gray-700 rounded-full flex items-center justify-center hover:bg-green-600 transition duration-300 transform hover:scale-110">
+                        <i class="fab fa-instagram text-sm"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <div class="md:col-span-1">
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4 text-green-400">Quick Links</h4>
+                        <ul class="space-y-3">
+                            <li><a href="index.html" class="text-gray-400 hover:text-green-400 transition duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-green-500 group-hover:translate-x-1 transition-transform"></i>
+                                Home
+                            </a></li>
+                            <li><a href="about.html" class="text-gray-400 hover:text-green-400 transition duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-green-500 group-hover:translate-x-1 transition-transform"></i>
+                                About Dompu
+                            </a></li>
+                            <li><a href="about.html" class="text-gray-400 hover:text-green-400 transition duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-green-500 group-hover:translate-x-1 transition-transform"></i>
+                                History
+                            </a></li>
+                            <li><a href="seemore.html" class="text-gray-400 hover:text-green-400 transition duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-green-500 group-hover:translate-x-1 transition-transform"></i>
+                                Destinations
+                            </a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4 text-green-400">Destinations</h4>
+                        <ul class="space-y-3">
+                            <li><a href="tambora.html" class="text-gray-400 hover:text-green-400 transition duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-green-500 group-hover:translate-x-1 transition-transform"></i>
+                                Mount Tambora
+                            </a></li>
+                            <li><a href="PantaiLakey.html" class="text-gray-400 hover:text-green-400 transition duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-green-500 group-hover:translate-x-1 transition-transform"></i>
+                                Lakey Beach
+                            </a></li>
+                            <li><a href="SatondaLake.html" class="text-gray-400 hover:text-green-400 transition duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-green-500 group-hover:translate-x-1 transition-transform"></i>
+                                Satonda Lake
+                            </a></li>
+                            <li><a href="Wadu_Jao.html" class="text-gray-400 hover:text-green-400 transition duration-300 flex items-center group">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-green-500 group-hover:translate-x-1 transition-transform"></i>
+                                Wadu Jao Peak
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Environmental Awareness -->
+            <div class="md:col-span-2">
+                <div class="bg-green-900/30 rounded-lg p-6 border border-green-700/50 h-full">
+                    <h4 class="text-lg font-semibold mb-4 flex items-center text-green-300">
+                        <i class="fas fa-seedling text-green-400 mr-2"></i>
+                        Protect Our Nature
+                    </h4>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div class="flex items-start space-x-2">
+                            <i class="fas fa-ban text-red-400 mt-1"></i>
+                            <span class="text-sm text-gray-300">No Littering - Keep Dompu Clean</span>
+                        </div>
+                        <div class="flex items-start space-x-2">
+                            <i class="fas fa-tree text-green-400 mt-1"></i>
+                            <span class="text-sm text-gray-300">Preserve Natural Resources</span>
+                        </div>
+                        <div class="flex items-start space-x-2">
+                            <i class="fas fa-recycle text-blue-400 mt-1"></i>
+                            <span class="text-sm text-gray-300">Reduce, Reuse, Recycle</span>
+                        </div>
+                        <div class="flex items-start space-x-2">
+                            <i class="fas fa-water text-cyan-400 mt-1"></i>
+                            <span class="text-sm text-gray-300">Keep Water Sources Clean</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-green-800/40 rounded-lg">
+                        <p class="text-sm text-green-200 text-center font-medium">
+                            <i class="fas fa-hands-helping mr-1"></i>
+                            Let's Preserve Dompu's Beauty Together!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Environmental Message Banner -->
+        <div class="mt-8 bg-gradient-to-r from-green-900 to-emerald-800 rounded-lg p-4 border border-green-600">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="flex items-center space-x-4 mb-3 md:mb-0">
+                    <div class="flex space-x-2">
+                        <div class="w-8 h-8 bg-green-700 rounded-full flex items-center justify-center">
+                            <i class="fas fa-earth-asia text-green-300 text-sm"></i>
+                        </div>
+                        <div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
+                            <i class="fas fa-leaf text-green-200 text-sm"></i>
+                        </div>
+                        <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-mountain text-white text-sm"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-white">Keep Dompu Beautiful</h3>
+                        <p class="text-green-200 text-xs">Protect our environment for future generations</p>
+                    </div>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-green-100 text-sm font-semibold">
+                        <i class="fas fa-heart text-red-400 mr-1"></i>
+                        Love Nature, Preserve Dompu
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Copyright Section -->
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <div class="flex items-center space-x-6 text-sm">
+                    <span class="flex items-center">
+                        <i class="fas fa-trash text-red-400 mr-1"></i>
+                        Don't Litter
+                    </span>
+                    <span class="flex items-center">
+                        <i class="fas fa-tree text-green-400 mr-1"></i>
+                        Plant Trees
+                    </span>
+                    <span class="flex items-center">
+                        <i class="fas fa-recycle text-blue-400 mr-1"></i>
+                        Reduce Waste
+                    </span>
+                </div>
+                <p class="text-sm">&copy; 2023 DompuParadise. All rights reserved. | Made with <i class="fas fa-heart text-red-500"></i> for Dompu</p>
+            </div>
+        </div>
+    </div>
+</footer>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Scroll Animation
+        function checkScroll() {
+            const elements = document.querySelectorAll('.fade-in');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+
+        // Animated Counter
+        function animateCounter(elementId, targetValue, duration = 2000) {
+            const element = document.getElementById(elementId);
+            let start = 0;
+            const increment = targetValue / (duration / 16); // 60fps
+            
+            const updateCounter = () => {
+                start += increment;
+                if (start < targetValue) {
+                    element.textContent = Math.floor(start).toLocaleString();
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = targetValue.toLocaleString();
+                }
+            };
+            
+            updateCounter();
+        }
+    </script>
+</body>
+</html>
