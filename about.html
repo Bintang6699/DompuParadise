@@ -10,11 +10,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
+        /* Fix untuk overflow di Android */
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+            position: relative;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
+        }
+        
+        /* Fix untuk container yang mungkin menyebabkan overflow */
+        .container {
+            max-width: 100%;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        
+        * {
+            box-sizing: border-box;
         }
         
         .parallax {
@@ -95,8 +110,9 @@
         
         .timeline {
             position: relative;
-            max-width: 1200px;
+            max-width: 100%;
             margin: 0 auto;
+            overflow-x: hidden;
         }
         
         .timeline::after {
@@ -150,6 +166,8 @@
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 100%;
+            overflow-wrap: break-word;
         }
         #logo{
             filter: brightness(0) saturate(100%);
@@ -176,6 +194,33 @@
             .right {
                 left: 0%;
             }
+            
+            /* Pastikan gambar tidak melebihi lebar layar */
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+            
+            /* Fix untuk container pada mobile */
+            .container {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+        }
+        
+        /* Fix untuk elemen yang mungkin keluar dari layar */
+        @media screen and (max-width: 640px) {
+            .grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .flex-col, .flex-row {
+                flex-wrap: wrap;
+            }
+            
+            .md\\:grid-cols-2, .md\\:grid-cols-3 {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -183,7 +228,7 @@
     <!-- Navbar -->
     <nav class="navbar fixed top-0 left-0 w-full z-50 py-1 bg-white shadow-sm">
         <div class="container mx-auto px-4 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-green-700"><img id="logo" src="logo.png" width="150px"></a>
+            <a href="index.html" class="text-2xl font-bold text-green-700"><img id="logo" src="logo.png" width="175px" style="max-width: 100%; height: auto;"></a>
             
             <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-8">
@@ -217,7 +262,7 @@
     <!-- About Page -->
     <div id="about" class="page active">
         <!-- Hero Section -->
-        <section class="pt-24 pb-16 md:pt-32 md:pb-24 bg-green-700 text-white">
+        <section class="pt-24 pb-16 md:pt-32 md:pb-24 bg-green-700 text-white" style="overflow-x: hidden;">
             <div class="container mx-auto px-4 text-center">
                 <h1 class="text-4xl md:text-5xl font-bold mb-4 fade-in">About Dompu</h1>
                 <p class="text-xl md:text-2xl max-w-3xl mx-auto fade-in">Discover the rich history, culture, and natural beauty of Dompu Regency</p>
@@ -225,10 +270,10 @@
         </section>
 
         <!-- Website Purpose Section - BARU -->
-        <section class="py-16 bg-white">
+        <section class="py-16 bg-white" style="overflow-x: hidden;">
             <div class="container mx-auto px-4">
                 <div class="text-center mb-16 fade-in">
-                    <img src="logo.png" width="250px" alt="DompuWisata Logo" class="mx-auto mb-6 fade-in">
+                    <img src="logo.png" width="250px" alt="DompuWisata Logo" class="mx-auto mb-6 fade-in" style="max-width: 100%; height: auto;">
                     <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Promoting Dompu Tourism</h2>
                     <p class="text-xl text-gray-600 max-w-3xl mx-auto">Our mission to showcase Dompu's hidden treasures to the world</p>
                 </div>
@@ -304,7 +349,7 @@
         </section>
 
         <!-- Introduction Section -->
-        <section class="py-16 bg-gray-50">
+        <section class="py-16 bg-gray-50" style="overflow-x: hidden;">
             <div class="container mx-auto px-4">
                 <div class="flex flex-col md:flex-row items-center">
                     <div class="md:w-1/2 mb-10 md:mb-0 md:pr-12 slide-in-left">
@@ -324,7 +369,7 @@
                     </div>
                     <div class="md:w-1/2 slide-in-right">
                         <div class="rounded-xl overflow-hidden shadow-lg">
-                            <img src="https://media-cdn.tripadvisor.com/media/photo-o/10/0e/db/6a/surf-lakey-peak.jpg" alt="Dompu Landscape" class="w-full h-auto">
+                            <img src="https://media-cdn.tripadvisor.com/media/photo-o/10/0e/db/6a/surf-lakey-peak.jpg" alt="Dompu Landscape" class="w-full h-auto" style="max-width: 100%;">
                         </div>
                     </div>
                 </div>
@@ -332,7 +377,7 @@
         </section>
 
         <!-- Tourism Impact Section - BARU -->
-        <section class="py-16 bg-green-700 text-white">
+        <section class="py-16 bg-green-700 text-white" style="overflow-x: hidden;">
             <div class="container mx-auto px-4">
                 <div class="text-center mb-16 fade-in">
                     <h2 class="text-3xl md:text-4xl font-bold mb-4">Transforming Dompu Through Tourism</h2>
@@ -409,7 +454,7 @@
         </section>
 
         <!-- History Section -->
-        <section class="py-16 bg-white">
+        <section class="py-16 bg-white" style="overflow-x: hidden;">
             <div class="container mx-auto px-4">
                 <div class="text-center mb-16 fade-in">
                     <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">History of Dompu</h2>
@@ -461,7 +506,7 @@
         </section>
 
         <!-- Culture & Traditions -->
-        <section class="py-16 bg-gray-50">
+        <section class="py-16 bg-gray-50" style="overflow-x: hidden;">
             <div class="container mx-auto px-4">
                 <div class="text-center mb-16 fade-in">
                     <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Culture & Traditions</h2>
@@ -500,12 +545,12 @@
         </section>
 
         <!-- Geography & Nature -->
-        <section class="py-16 bg-white">
+        <section class="py-16 bg-white" style="overflow-x: hidden;">
             <div class="container mx-auto px-4">
                 <div class="flex flex-col md:flex-row items-center">
                     <div class="md:w-1/2 mb-10 md:mb-0 slide-in-left">
                         <div class="rounded-xl overflow-hidden shadow-lg">
-                            <img src="TamboraImg/vecteezy.com 2.jpg" alt="Dompu Nature" class="w-full h-auto">
+                            <img src="TamboraImg/vecteezy.com 2.jpg" alt="Dompu Nature" class="w-full h-auto" style="max-width: 100%;">
                         </div>
                     </div>
                     <div class="md:w-1/2 md:pl-12 slide-in-right">
@@ -540,7 +585,7 @@
         </section>
 
         <!-- Mission & Vision -->
-        <section class="py-16 bg-green-700 text-white">
+        <section class="py-16 bg-green-700 text-white" style="overflow-x: hidden;">
             <div class="container mx-auto px-4">
                 <div class="text-center mb-12 fade-in">
                     <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Mission & Vision</h2>
@@ -602,12 +647,12 @@
         </section>
 
         <!-- Footer -->
-<footer class="bg-gray-800 text-white py-12 border-t border-gray-700">
+<footer class="bg-gray-800 text-white py-12 border-t border-gray-700" style="overflow-x: hidden;">
     <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             <!-- Company Info -->
             <div class="md:col-span-1">
-                <img id="logo1" class="mb-4 filter brightness-0 invert" src="logo.png" width="200px" alt="DompuWisata Logo">
+                <img id="logo1" class="mb-4 filter brightness-0 invert" src="logo.png" width="200px" alt="DompuWisata Logo" style="max-width: 100%; height: auto;">
                 <p class="text-gray-400 mb-4 text-sm leading-relaxed">
                     Your trusted guide to exploring the natural beauty and cultural richness of Dompu, West Nusa Tenggara.
                 </p>
